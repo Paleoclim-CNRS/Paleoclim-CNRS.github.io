@@ -5,7 +5,7 @@ excerpt: Use Diag_CM5A2.py file on IRENE to perform basic diags over CM5A2's out
 toc: true
 ---
 
-[![](https://img.shields.io/static/v1?label=Code&message=here&color=lightgrey&style=flat-square&logo=github)](https://github.com/Anthogr/Diag_CMA5A2/tree/IRENE_GEN2212)
+[![](https://img.shields.io/static/v1?label=Code&message=here&color=lightgrey&style=flat-square&logo=github)](https://github.com/Paleoclim-CNRS/Diag_CM5A2/tree/IRENE_GEN2212)
 
 The folder containing the script and all the packages required is located on IRENE here: `/ccc/work/cont003/gen2212/gen2212/Diag_CM5A2/`.
 
