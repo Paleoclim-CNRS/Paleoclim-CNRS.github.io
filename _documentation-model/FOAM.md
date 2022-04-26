@@ -58,7 +58,7 @@ In the following, you'll need an ensemble of files, which are downloadable [here
 
 ## Directory with boundary conditions and initial conditions
 
-In the archive that you previously downloaded, you will find a directory `BC_300rd_T36.tar.gz` containing all boundary and initial conditions required to run an random experiment at 300 Ma. Place the (uncompressed directory in your `WORKDIR` (the place where you will want to run your simulations; this is a `scratchdir`, although files are not automatically deleted) at the following location (while creating required directories): `/work/crct/zz9999zz/FOAMtutorial/phanero/300rd/300rd_T36/BC_300rd_T36`.
+In the archive that you previously downloaded, you will find a directory `BC_300rd_T36.tar.gz` containing all boundary and initial conditions required to run an random experiment at 300 Ma. Place the (uncompressed directory in your `WORKDIR` (the place where you will want to run your simulations; this is a `scratchdir`, although files are not automatically deleted) at the following location (while creating required directories): `/work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T36`.
 
 ## Run directory
 
@@ -66,20 +66,20 @@ Now, let's create the directory where the FOAM model will run. For the purpose o
 
 ### Create run directory
 
-Create run directory `mkdir /work/crct/zz9999zz/FOAMtutorial/phanero/300rd/300rd_T36/EcN_8X`, enter that directory `cd /work/crct/zz9999zz/FOAMtutorial/phanero/300rd/300rd_T36/EcN_8X` and copy the content of downloaded directory `run_directory` there (`cp run_directory/* /work/crct/zz9999zz/FOAMtutorial/phanero/300rd/300rd_T36/EcN_8X/.`).
+Create run directory `mkdir /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/EcN_8X`, enter that directory `cd /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/EcN_8X` and copy the content of downloaded directory `run_directory` there (`cp run_directory/* /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/EcN_8X/.`).
 
 ### File `run_params`
 
-In file `run_params` (below), replace `zz9999zz` with your login. All other info is OK.
+File `run_params` gives the run duration and paths. In this file, replace `zz9999zz` with your login. All other info is OK (see below).
 
 ```fortran
 RESTFRQ: 360
 HISTFRQ: 360
 FILTPHIS: T
 INITIAL: T
-PREFIX: /work/crct/zz9999zz/FOAMtutorial/phanero/300rd/300rd_T36/EcN_8X
-STORAGE: /work/crct/zz9999zz/FOAMtutorial/phanero/300rd/300rd_T36/EcN_8X
-TIME_INV: /work/crct/zz9999zz/FOAMtutorial/phanero/300rd/300rd_T36/BC_300rd_T36
+PREFIX: /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/EcN_8X
+STORAGE: /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/EcN_8X
+TIME_INV: /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T36
 FINISHED: 0
 RUNLNG: 720000
 ```
@@ -91,6 +91,112 @@ RUNLNG: 720000
 - `TIME_INV`: path to boundary conditions directory
 - `FINISHED`: last simulated year (0 for a new simulation)
 - `RUNLNG`: run duration, in days. 720 000 days is 2000 years (of 360 days each, see `RESTFRQ`).
+
+Caution: too long a path (e.g., `/work/crct/zz9999zz/foammmmmmmmmphanero/300rd/300rd_T36/EcN_8X`) will make the model crash with no clear error message. Be aware.
+
+### File `atmos_params`
+
+File `atmos_params` defines an ensemble of parameter values, output variables and file names. More importantly, it also defines atmospheric pCO2, the solar constant and orbital configuration. 
+
+For the purpose of this turorial, you do not need to change anything.
+
+```fortran
+ &CCMEXP
+ PRIMARY='RELHUM',
+ EXCLUDE='DC01','TS2','TS3','VD01','TS4','DTH','DTV','CMFDT','CMFDQ','DTCOND','CNVCLD','TAUGWX','QPERT','TPERT','TAUX','TAUY','UTGW','VTGW','VVPUU','NTRM','NTRN','NTRK,'NDBASE','NSBASE','NBDATE','NBSEC','MDT','MHISF','CURRENT_MSS','FIRST_MSS','INIT_MSS','TIBND_MSS','SST_MSS','OZONE_MSS','DATE','DATESEC',
+ CTITLE = 'PCCM3-UW case: default',
+ NCDATA = 'SEP1.R15.nc',
+ BNDTI = 'tibds.R15.nc',
+ BNDTVS = 'tvbds.R15.nc',
+ BNDTVO = 'ozn.R15.nc',
+ IRT=0,
+ NSREST=3,
+ NREVSN='rest',
+ NSWRPS='passwd',
+ NSVSN='rstrt',
+ NDENS  =     1,
+ NNBDAT = 000101,
+ NNBSEC = 0,
+ NNDBAS = 0,
+ NNSBAS = 0,
+ MFILT  =  1,
+ DTIME  =  1800.,
+ IRADSW =   -1,
+ IRADLW =   -1,
+ IRADAE =   -12,
+ SSTCYC = .T.,
+ OZNCYC = .T.,
+ DIF4=2.E16,
+ ACCRST = .T.,
+ CO2VMR = 2240e-06,
+ CH4VMR = 1.714000e-06,
+ SCON = 1368e+03,
+ ECCEN = 0,
+ OBLIQ = 22,
+ MVELP = 90,
+ DAYP = 0,
+ &END
+```
+
+- `CO2VMR = 2240e-06`: Atmospheric CO2 is set to 2240 ppm.
+- `1368e+03`: The solar constant is set to Modern (1368 W m-2))
+- `ECCEN = 0`: Eccentricity is zero.
+- `OBLIQ = 22`: Obliquity is 22°.
+- `MVELP = 90` and `DAYP = 0`: longitude of perihelion which has no impact here due to the null eccentricity.
+
+### File `pbs.foam16p.script`
+
+File `pbs.foam16p.script` is a bash script permitting to submit the simulation in batch mode.
+For the purpose of this turorial, you do not need to change anything.
+
+```fortran
+#!/bin/bash
+#$ -N j300RD8
+#$ -pe dmp* 32
+#$ -q batch
+
+module purge
+module load intel/2018
+module load netcdf/4.6.1/openmpi/2.1.2/intel/2018
+module load cdo/1.9.2/intel/2018
+module load nco/4.7.7/intel/2018
+module load openmpi/2.1.2/intel/2018
+
+mpirun foam1.5 run_params
+
+#qsub pbs2
+```
+- `#$ -N j300RD8`: The job name, just convenient.
+- `#$ -pe dmp* 32` and `#$ -q batch`: Simulation ran in batch mode on 32 cores in parallel.
+
+Modules are loaded, and the executable for the fully coupled model (`foam1.5`) is launched using the parameters of `run_params`.
+
+### Linking the executable
+
+While in the run directory, create a symbolic link (to avoid filling the disk) to the compiled executable: `ln -s /user1/crct/zz9999zz/foam1.5 .`
+
+### Creating history and restart directories
+
+While in the run directory, create the history and restart directories, for each model component (ocean, atmosphere and coupler):
+
+`mkdir history`
+`mkdir history/atmos`
+`mkdir history/ocean`
+`mkdir history/coupl`
+`mkdir restart`
+`mkdir restart/atmos`
+`mkdir restart/ocean`
+`mkdir restart/coupl`
+
+## Launching the simulation
+
+While in the run directory, submit the job `qsub pbs.foam16p.script`.
+You can check the run status using `qstat`(and will be happy at that time to see a proper run name, defined above).
+To abort the run, `qdel job-ID`, with `job-ID`being the job number (e.g. 7013515) obtained with the command `qstat`.
+
+It will take approximatively 4 days to run for 2000 model years. Output is written in the `history`output directories.
+
+In case the simulation crashed, see section below.
 
 # Creating boundary and initial conditions
 
