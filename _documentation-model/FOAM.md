@@ -5,6 +5,8 @@ toc: true
 toc_sticky: true
 ---
 
+A FOAM User-guide at U. Bourgogne.
+
 [last updated: 26 April 2022]
 
 # Introduction
@@ -179,14 +181,14 @@ While in the run directory, create a symbolic link (to avoid filling the disk) t
 
 While in the run directory, create the history and restart directories, for each model component (ocean, atmosphere and coupler):
 
-`mkdir history`
-`mkdir history/atmos`
-`mkdir history/ocean`
-`mkdir history/coupl`
-`mkdir restart`
-`mkdir restart/atmos`
-`mkdir restart/ocean`
-`mkdir restart/coupl`
+- `mkdir history`
+- `mkdir history/atmos`
+- `mkdir history/ocean`
+- `mkdir history/coupl`
+- `mkdir restart`
+- `mkdir restart/atmos`
+- `mkdir restart/ocean`
+- `mkdir restart/coupl`
 
 ## Launching the simulation
 
@@ -194,17 +196,54 @@ While in the run directory, submit the job `qsub pbs.foam16p.script`.
 You can check the run status using `qstat`(and will be happy at that time to see a proper run name, defined above).
 To abort the run, `qdel job-ID`, with `job-ID`being the job number (e.g. 7013515) obtained with the command `qstat`.
 
-It will take approximatively 4 days to run for 2000 model years. Output is written in the `history`output directories.
+It will take approximatively 4 days to run for 2000 model years. Output is written in the `history`output directories (one file every 3 to 4 minutes).
 
-In case the simulation crashed, see section below.
+In case the simulation crashes, see section below.
 
 # Creating boundary and initial conditions
 
 ## Creating boundary conditions
 
+Boundary conditions are created using a graphical interface named Slarti. The software `Slarti.jar` is included in the files you downloaded. It can be run on MacOS (`open Slarti.jar`) and Linux (and probably Windows, but who uses Windows?). I suggest using Slarti on your local computer for speed purposes when using the mouse.
+
+Slarti takes in input a DEM in the form of a netcdf with 128 x 128 grid points. One example file is provided with this turorial: `Topobathy_300eb_postslarti_cor.nc`.
+
+
+1. `File/New`, 128x128, R15, Bathymetry/Topography, `Topobathy_300eb_postslarti_cor.nc`, NetCDF, no Optional Input, click OK (see screenshot below).
+
+Remark: you can easily create a similar input file based on the paleoDEMS of [Scotese and Wright (2018)](https://www.earthbyte.org/paleodem-resource-scotese-and-wright-2018/), which you may want to regrid on a 128 x 128 grid using the `cdo remapbil`tools (module available on the CCUB as well).
+
+2. `Please enter the bathymetry/topography variable name`: `TOPO` in this example (you can get this info using the nco tool `ncdump -h Topobathy_300eb_postslarti_cor.nc`; nco available on the CCUB as well).
+
+3. `View-Edit/Mask`: You can `Highlight ocean cells with no current` and alter the land-sea mask manually. During this step, you have to make sure not to create any lakes, and that gateways are large enough to permit water flow (or just close them is that's better). Don't forget to `Compare and match files` and save regularly, see step 4.
+
+4. `File/Save`; Save for Coupled Run` > OK > OK > lakes can be found at this stage, close window and `Continue` > OK > Next > OK > OK (you may need to enlarge the windows to see the button appear), define path (e.g., `/Users/username/Desktop/300eb`) and OK
+
+5. `View-Edit/Vegetation`: Leave unchanged for a theoretical latitudinal distribution like today, or alter for deep-time slices (e.g. rocky desert in the Cambrian in the absence of land plants).
+
+6. `View-Edit/Bathymetry`: Best changed level by level in step 7.
+
+7. `View-Edit/Bathymetry Level View`: Level by level, make sure to avoid isolated ocean grid points where salt could accumulate, which would make the model drift and ultimately crash.
+
+8. `View-Edit/Topography`: can be altered here, but keep in mind that the atmosphere will see a lower-resolution version (only shown when saving).
+
+9. `View-Edit/River flow`: define the water routing manually, while making sure to avoid creating lakes. Please remember to `Compare and match files` when swithcing from one window to another one. For instance, changing the topography will automatically alter the river flow. Be aware of this. At any time, you can manually `List river flow lakes`. No lakes should be found in the final boundary conditions. If lakes are found, you have to get rid of them.
+
+<div class='alert alert-info'>
+The slab model has no routing and lakes can exist. However, it means that you will not be able to run the fully coupled model using the same directory of boundary conditions. I suggest always preparing clean boundary conditions for the coupled model, even if you wanna run the slab version.
+</div>
+
 ## Creating initial conditions
 
 # Debugging
+
+Different cases:
+
+## Nothing bad happened
+
+## Timestep issue (sea ice, warm climate))
+
+## Salt anomaly
 
 # Checking for equilibrium and generating output files
 
