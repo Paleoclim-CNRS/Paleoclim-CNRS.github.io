@@ -382,11 +382,11 @@ Edit file `run_params` (or create a new one, named for instance `run2`) as follo
     FINISHED: 720000
     RUNLNG: 18000
     ```
-
-    - `HISTFRQ`: set to 30 for monthly output (every 30 days).
-    - `FILTPHIS` and `INITIAL`: set to `F` for a restart.
-    - `FINISHED`: restarting from year 2000. 
-    - `RUNLNG`: 18 000 days (50 years of 360 days each).
+    
+- `HISTFRQ`: set to 30 for monthly output (every 30 days).
+- `FILTPHIS` and `INITIAL`: set to `F` for a restart.
+- `FINISHED`: restarting from year 2000. 
+- `RUNLNG`: 18 000 days (50 years of 360 days each).
 
 Then, submit `pbs.foam16p.script` (if you created a new `run2` file, you have to make sure that `pbs.foam16p.script`, or a newly-created `pbs2` file, calls the right parameters, here `run2`). It will take around 4 hours to run for 50 years.
 
@@ -407,20 +407,21 @@ We generate climatology files for each model component: ocean, atmosphere and co
     endname ='300rd_1368W_EccN_ocean_2240ppm.nc'
     ```
 
-- `prefix`: to be adjusted, `ocean`, `atmos` or `coupl`.
-- `year`: duration of the spinup (long run with annual output), here 2000 years.
-- `nyears`: duration of the short run with monthly output, here 50 years.
-- `endname`: name of the output climatology file; to be adjusted, including `ocean`, `atmos` or `coupl`.
+    - `prefix`: to be adjusted, `ocean`, `atmos` or `coupl`.
+    - `year`: duration of the spinup (long run with annual output), here 2000 years.
+    - `nyears`: duration of the short run with monthly output, here 50 years.
+    - `endname`: name of the output climatology file; to be adjusted, including `ocean`, `atmos` or `coupl`.
 
+{:start="2"}
 2. Then, `cp NewMois.py ../atmos/.`, `cd ../atmos/.` and edit `NewMois.py`: `prefix = 'history.atmos.'` and `endname ='300rd_1368W_EccN_atmos_2240ppm.nc'`. Run the script.
 
 3. Do the same for the coupler (`cp NewMois.py ../coupl/.` etc.).
 
-As a result, the output of each FOAM experiment is presented in the form of 3 files, each associated with a given model component, and each having specific variables: 
+As a result, the output of each FOAM experiment is presented in the form of 3 files, each associated with a given model component, and each containing specific variables (oceanic variables for the ocean etc.): 
 
-- '300rd_1368W_EccN_ocean_2240ppm.nc';
-- '300rd_1368W_EccN_atmos_2240ppm.nc';
-- '300rd_1368W_EccN_coupl_2240ppm.nc'.
+- `300rd_1368W_EccN_ocean_2240ppm.nc`;
+- `300rd_1368W_EccN_atmos_2240ppm.nc`;
+- `300rd_1368W_EccN_coupl_2240ppm.nc.
 
 __With the slab model, use `NewMoisSlab.py` and skip step #1 (there is no oceanic output). As a result, the output of each FOAM-slab experiment is presented in the form of only 2 (instead of 3) files.__ 
 
@@ -430,7 +431,7 @@ Different cases:
 
 ## Nothing bad happened
 
-Sometimes, the model just crashed without know reason. In that case, just check that `restart/atmos` files are well named (see Known Issues below) and restart the experiment. 
+Sometimes, the model just crashes without known reason. In that case, just check that `restart/atmos` files are well named (see [Known Issues below](https://paleoclim-cnrs.github.io/documentation-model/FOAM/#restart-files)) and restart the experiment. 
 
 ## Timestep issue
 
