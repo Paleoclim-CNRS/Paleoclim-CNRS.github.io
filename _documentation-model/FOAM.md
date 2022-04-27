@@ -62,10 +62,8 @@ NC_LIBS = $(NETCDFC_LDFLAGS) -lnetcdff
 
 4. Compile: `Make foam`. Everything going well, you should get an executable called `foam1.5`, which you should move into your home root directory (`mv foam1.5 ../.` or alternatively `mv foam1.5 /user1/crct/zz9999zz/`.
 
-<div class='alert alert-info'>
-For FOAM slab: `Make foamslab` and then `mv foam1.5 /user1/crct/zz9999zz/foam1.5.slab` (renaming avoids confusion with the executable of the fully coupled model).
-</div>
-<br>
+__For FOAM slab: `Make foamslab` and then `mv foam1.5 /user1/crct/zz9999zz/foam1.5.slab` (renaming avoids confusion with the executable of the fully coupled model).__
+
 Now, the model is compiled and ready to run. Let's see how to launch an experiment from a directory with all boundary and initial conditions ready. We'll see how to create these boundary and initial conditions later.
 
 In the following, you'll need an ensemble of files, which are downloadable [here](https://MISSING-LINK)
@@ -223,41 +221,97 @@ We previously ran an experiment based on a provided direcvtory of boundary and i
 
 ## Creating boundary conditions
 
+Boundary conditions are model parameters that do not evolve during the simulation. They notably define the continental configuration, topography and bathymetry, pCO2, solar luminosity, orbital configuration etc.
+
+### Slarti boundary conditions
+
 Boundary conditions are created using a graphical interface named Slarti. The software `Slarti.jar` is included in the files you downloaded. It can be run on MacOS (`open Slarti.jar`) and Linux (and probably Windows, but who uses Windows?). I suggest using Slarti on your local computer for speed purposes when using the mouse.
 
 Slarti takes in input a DEM in the form of a netcdf with 128 x 128 grid points. One example file is provided with this turorial: `Topobathy_300eb_postslarti_cor.nc`.
 
 Remark: you can easily create a similar input file based on the paleoDEMS of [Scotese and Wright (2018)](https://www.earthbyte.org/paleodem-resource-scotese-and-wright-2018/), which you may want to regrid on a 128 x 128 grid using the `cdo remapbil` tool (module available on the CCUB as well).
+     
+1. `File/New`, 128x128, R15, Bathymetry/Topography, `Topobathy_300eb_postslarti_cor.nc`, NetCDF, no Optional Input, click OK (see screenshot below).
 
 <img src="/assets/images/documentation/model/FOAM_screenshot_Slarti.png"
      alt="Slarti Screenshot"
      style="float: left; margin-right: 10px;" />
      
-1. `File/New`, 128x128, R15, Bathymetry/Topography, `Topobathy_300eb_postslarti_cor.nc`, NetCDF, no Optional Input, click OK (see screenshot below).
-
 2. `Please enter the bathymetry/topography variable name`: `TOPO` in this example (you can get this info using the nco tool `ncdump -h Topobathy_300eb_postslarti_cor.nc`; nco available on the CCUB as well).
 
-3. `View-Edit/Mask`: You can `Highlight ocean cells with no current` and alter the land-sea mask manually. During this step, you have to make sure not to create any lakes, and that gateways are large enough to permit water flow (or just close them is that's better). Don't forget to `Compare and match files` and save regularly, see step 4.
+3. `View-Edit/Mask`: You can `Highlight ocean cells with no current` and alter the land-sea mask manually. During this step, you have to make sure not to create any lakes, and that oceanic gateways are large enough to permit water flow (or just close them if that's better). Don't forget to `Compare and match files` and `File/Save` regularly, see step 4.
 
-4. `File/Save`; Save for Coupled Run > OK > OK > lakes can be found at this stage, close window and `Continue` > OK > Next > OK > OK (you may need to enlarge the windows to see the button appear), define path (e.g., `/Users/username/Desktop/300eb`) and OK
+4. `File/Save`; Save for Coupled Run > OK > OK > lakes can be found at this stage, close window and `Continue` > OK > Next > OK > OK (you may need to enlarge the window to see the button appear), define path (e.g., `/Users/username/Desktop/300rd`) and OK. I suggest saving on the Desktop, since Slarti seems to have writing rights issues in some other directories.
 
-5. `View-Edit/Vegetation`: Leave unchanged for a theoretical latitudinal distribution like today, or alter for deep-time slices (e.g. rocky desert in the Cambrian in the absence of land plants).
+5. `View-Edit/Vegetation`: Leave unchanged for a theoretical latitudinal distribution like today, or alter for deep-time periods (e.g. rocky desert in the Cambrian in the absence of land plants).
 
-6. `View-Edit/Bathymetry`: Best changed level by level in step 7.
+6. `View-Edit/Bathymetry`: Best changing level by level in step 7.
 
 7. `View-Edit/Bathymetry Level View`: Level by level, make sure to avoid isolated ocean grid points where salt could accumulate, which would make the model drift and ultimately crash.
 
-8. `View-Edit/Topography`: can be altered here, but keep in mind that the atmosphere will see a lower-resolution version (only shown when saving).
+8. `View-Edit/Topography`: can be altered here, but keep in mind that the atmosphere will see a lower-resolution version (only shown when saving). What you see in the topography seen by the coupler.
 
-9. `View-Edit/River flow`: define the water routing manually, while making sure to avoid creating lakes. Please remember to `Compare and match files` when swithcing from one window to another one. For instance, changing the topography will automatically alter the river flow. Be aware of this. At any time, you can manually `List river flow lakes`. No lakes should be found in the final boundary conditions. If lakes are found, you have to get rid of them.
+9. `View-Edit/River flow`: define the water routing manually, while making sure to avoid creating lakes. Please remember to `Compare and match files` when switching from one window to another one. For instance, changing the topography will automatically alter the river flow. Be aware of this. At any time, you can manually `List river flow lakes`. No lakes should be found in the final boundary conditions. If lakes are found, you have to get rid of them.
 
-<div class='alert alert-info'>
-The slab model has no routing and lakes can exist. However, it means that you will not be able to run the fully coupled model using the same directory of boundary conditions. I suggest always preparing clean boundary conditions for the coupled model, even if you wanna run the slab version.
-</div>
+10. At any time, you can save your boundary conditions in their current state and resume editing later. Just open Slarti and `File/Open` the `.case` file included in your directory of saved boundary conditions.
 
-Importantly, you can use the directory of boundary conditions provided with this tutorial (`BC_300rd_T36.tar.gz`) to look at the expected Slarti output. To that purpose, open Slarti and `File/Open`, find uncompressed directory `BC_300rd_T36`and open file `300rd.case`. 
+__The slab model has no routing and lakes can exist. However, it means that you will not be able to run the fully coupled model using the same directory of boundary conditions. I suggest always preparing clean boundary conditions for the coupled model, even if you wanna run the slab version.__
 
+Importantly, you can use the directory of boundary conditions provided with this tutorial (`BC_300rd_T36.tar.gz`) to look at the expected Slarti output. To that purpose, open Slarti and `File/Open`, find uncompressed directory `BC_300rd_T36` and open file `300rd.case`. 
+
+### Gathering required files
+
+Let's gather all required files in a directory (just as you previous used directory `BC_300rd_T36` (uncompressed from `BC_300rd_T36.tar.gz`).
+
+1. Create a new directory `/work/crct/al1966po/foam/phanero/300rd/300rd_T36/BC_300rd_T37`.
+
+2. Copy a series of requested files available in the files you previously downloaded: `cp TOADD/* /work/crct/al1966po/foam/phanero/300rd/300rd_T36/BC_300rd_T37/.`
+
+3. Copy the Slarti output files. These files should now be saved on your local computer. Use `rcp` to send them on the cluster. `scp 300rd/* zz9999zz@krenek2002.u-bourgogne.fr:/work/crct/al1966po/foam/phanero/300rd/300rd_T36/BC_300rd_T37/.`.
+
+4. Enter the directory `cd /work/crct/al1966po/foam/phanero/300rd/300rd_T36/BC_300rd_T37/` and rename 2 files: `mv tibds.R15.* tibds.R15.nc`and `mv initial.R15.* SEP1.R15.nc`.
+
+Now, your boundary conditions are ready. In order to test them in this tutorial, we can simply adapt the paths used in the `EcN_8X` experiment that we previously set up. To that purpose, just edit file `run_params`: `TIME_INV` should new read `/work/crct/al1966po/foam/phanero/300rd/300rd_T36/BC_300rd_T37`.
+
+Make sure (with `qstat`) that the simulation is not currently running (or stop it using `qdel`) and launch it with `qsub pbs.foam16p.script`.
+ 
 ## Creating initial conditions
+
+Initial conditions define model 'starting' conditions, for instance ocean temperature and salinity, which are expected to change during the model run.
+
+You will be interested in 2 specific files defining ocean initial salinity and temperature.
+
+__With the slab model, ocean dynamics is not resolved. Please ignore this paragraph on the model initial conditions__
+
+### Field of initial salinity
+
+The default field of initial salinity is Modern and defined in file `BC_300rd_T37/om3.salt24`.
+
+For paleo application, you will be interested in starting with a globally uniform ocean salinity field. Such a file, with a global salinity of 35 permil, is found in the files your previously downloaded, here: `UTIL/om3.salt35`. TO use it:
+
+1. In your directory of boundary conditions (`/work/crct/al1966po/foam/phanero/300rd/300rd_T36/BC_300rd_T37`), delete default file: `rm om3.salt24`.
+
+2. Copy desired file: `cp UTIL/om3.salt35 /work/crct/al1966po/foam/phanero/300rd/300rd_T36/BC_300rd_T37/.'
+
+3. Create symbolic link: `ln -s om3.salt35 om3.salt24`. Actually, you could just `mv om3.salt35 om3.salt24` or `cp om3.salt35 om3.salt24`, but the symbolic link permits keeping track of the file you used. 
+
+### Field of initial ocean temperature
+
+Similarly, the default field of initial temperature is Modern and defined in file `BC_300rd_T37/om3.temp24` and you can replace it with any file found in directory `UTIL` (e.g., `om3.temp24_20_5_1_1`). These files are all named using the same pattern: `om3.temp24_`, followed by: equatorial surface temperature, equatorial thermocline temperature, sea-bottom temperature and polar temperature (both supposed to be identical due to deep-water formation at the poles).
+
+I suggest to use a warm initial ocean (around 3 degrees warmer than expected equilibrium temperature) in order to ensure intense oceanic convection and a rapid deep-ocean temperature equilibrium.
+
+The FOAM model climatic sensitivity being around 3°C, I provide intiial temperature files very ~3 degrees. You can also create your own intial temperature fields using the Matlab and Python routines provided in directory `UTIL/NEWEQ`.
+
+1. First run the Matlab script `raw_om3_temp24.m`to generate a NetCDF file with the expected temperature data.
+
+2. Then, run the Python script `AP_theoretical_nc_to_om3.py` to convert the NetCDF into a binary file `om3.temp24` that can be read by FOAM.
+
+# Checking for equilibrium and generating output files
+
+## Checking for equilibrium
+
+## Generating output files
 
 # Debugging
 
@@ -268,12 +322,6 @@ Different cases:
 ## Timestep issue (sea ice, warm climate))
 
 ## Salt anomaly
-
-# Checking for equilibrium and generating output files
-
-## Checking for equilibrium
-
-## Generating output files
 
 # Looking at the model output
 
