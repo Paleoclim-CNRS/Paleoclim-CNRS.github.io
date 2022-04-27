@@ -59,7 +59,7 @@ NETCDF_INC= -I/soft/c7/netcdf/4.6.1/openmpi/2.1.2/intel/2018/include
 NETCDF_LIB= -L/soft/c7/netcdf/4.6.1/openmpi/2.1.2/intel/2018/lib -lnetcdff -L/soft/c7/phdf5/1.8.20/openmpi/2.1.2/intel/2018/lib -pthread -L/soft/c7/netcdf/4.6.1/openmpi/2.1.2/intel/2018/lib -lnetcdf -lnetcdf
 NC_LIBS = $(NETCDFC_LDFLAGS) -lnetcdff
 ```
-
+{:start="3"}
 3. `Make clean` to clean compiling directory from previous iterations.
 
 4. Compile: `Make foam`. Everything going well, you should get an executable called `foam1.5`, which you should move into your home root directory (`mv foam1.5 ../.` or alternatively `mv foam1.5 /user1/crct/zz9999zz/`.
@@ -126,7 +126,7 @@ FINISHED: 0
 RUNLNG: 36000
 ```
 
-__It should take around 4 hours for the simulation to run.__
+__It should take around 4 hours for the slab simulation to run.__
 
 ### File `atmos_params`
 
@@ -254,7 +254,8 @@ Remark: you can easily create a similar input file based on the paleoDEMS of [Sc
 <img src="/assets/images/documentation/model/FOAM_screenshot_Slarti.png"
      alt="Slarti Screenshot"
      style="float: left; margin-right: 10px;" />
-     
+
+{:start="2"}
 2. `Please enter the bathymetry/topography variable name`: `TOPO` in this example (you can get this info using the nco tool `ncdump -h Topobathy_300eb_postslarti_cor.nc`; nco available on the CCUB as well).
 
 3. `View-Edit/Mask`: You can `Highlight ocean cells with no current` and alter the land-sea mask manually. During this step, you have to make sure not to create any lakes, and that oceanic gateways are large enough to permit water flow (or just close them if that's better). Don't forget to `Compare and match files` and `File/Save` regularly, see step 4.
@@ -425,7 +426,7 @@ As a result, the output of each FOAM experiment is presented in the form of 3 fi
 
 - `300rd_1368W_EccN_ocean_2240ppm.nc`;
 - `300rd_1368W_EccN_atmos_2240ppm.nc`;
-- `300rd_1368W_EccN_coupl_2240ppm.nc.
+- `300rd_1368W_EccN_coupl_2240ppm.nc`.
 
 __With the slab model, use `NewMoisSlab.py` and skip step #1 (there is no oceanic output). As a result, the output of each FOAM-slab experiment is presented in the form of only 2 (instead of 3) files.__ 
 
