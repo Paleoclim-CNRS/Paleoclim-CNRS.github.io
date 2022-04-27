@@ -15,11 +15,13 @@ Although the tutorial is built with many sections for readibility, I suggest pro
 
 # Introduction
 
-This tutorial describes how to run the Fast Ocean Atmosphere Model (Jacob, 1997) on the linux cluster of Univ. Bourgogne (CCUB, Dijon). It should be easy to adapt to other clusters.
+This tutorial describes how to run the Fast Ocean Atmosphere Model ([Jacob, 1997]('https://ftp.mcs.anl.gov/pub/People/jacob/RLJdissertation.ps.gz)) on the linux cluster of Univ. Bourgogne (CCUB, Dijon). It should be easy to adapt to other clusters.
 
 Please note that the FOAM source code is not freely available. The code developer, [Robert Jacob](https://www.anl.gov/profile/robert-l-jacob), plans to upload it on GitHub soon. In the meantime, you can contact [me](https://alexpohl.github.io/) if you are interested in collaborating, obtaining the model code and accessing the CCUB cluster.
 
 The tutorial is designed as follows: baseline instructions are given for the fully coupled model (with deep ocean), and additional details are provided where applicable (in bold) for the slab mixed-layer ocean model.
+
+Resource and files for this tutorial should be downloaded [here](/assets/data/FOAM_files_26Apr2022.tar.gz).
 
 # Requirements
 
@@ -57,6 +59,7 @@ NETCDF_INC= -I/soft/c7/netcdf/4.6.1/openmpi/2.1.2/intel/2018/include
 NETCDF_LIB= -L/soft/c7/netcdf/4.6.1/openmpi/2.1.2/intel/2018/lib -lnetcdff -L/soft/c7/phdf5/1.8.20/openmpi/2.1.2/intel/2018/lib -pthread -L/soft/c7/netcdf/4.6.1/openmpi/2.1.2/intel/2018/lib -lnetcdf -lnetcdf
 NC_LIBS = $(NETCDFC_LDFLAGS) -lnetcdff
 ```
+
 {:start="3"}
 3. `Make clean` to clean compiling directory from previous iterations.
 
