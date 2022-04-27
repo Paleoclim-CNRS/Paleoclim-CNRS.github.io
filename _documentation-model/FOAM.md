@@ -110,6 +110,22 @@ RUNLNG: 720000
 
 Caution: too long a path (e.g., `/work/crct/zz9999zz/foammmmmmmmm/phanero/300rd/300rd_T36/EcN_8X`) will make the model crash with no clear error message. Be aware.
 
+__With the slab model, equilibrium is reached in 50 years. Just launch the model for 100 years with monthly output like this:__
+
+```fortran
+RESTFRQ: 360
+HISTFRQ: 30
+FILTPHIS: T
+INITIAL: T
+PREFIX: /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/EcN_8X
+STORAGE: /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/EcN_8X
+TIME_INV: /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T36
+FINISHED: 0
+RUNLNG: 36000
+```
+
+__It should take around 4 hours for the simulation to run.__
+
 ### File `atmos_params`
 
 File `atmos_params` defines an ensemble of parameter values, output variables and file names. More importantly, it also defines atmospheric pCO2, the solar constant and orbital configuration. 
@@ -263,15 +279,15 @@ Importantly, you can use the directory of boundary conditions provided with this
 
 Let's gather all required files in a directory (just as you previous used directory `BC_300rd_T36` (uncompressed from `BC_300rd_T36.tar.gz`).
 
-1. Create a new directory `/work/crct/al1966po/foam/phanero/300rd/300rd_T36/BC_300rd_T37`.
+1. Create a new directory `/work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T37`.
 
-2. Copy a series of requested files available in the files you previously downloaded: `cp TOADD/* /work/crct/al1966po/foam/phanero/300rd/300rd_T36/BC_300rd_T37/.`
+2. Copy a series of requested files available in the files you previously downloaded: `cp TOADD/* /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T37/.`
 
-3. Copy the Slarti output files. These files should now be saved on your local computer. Use `rcp` to send them on the cluster. `scp 300rd/* zz9999zz@krenek2002.u-bourgogne.fr:/work/crct/al1966po/foam/phanero/300rd/300rd_T36/BC_300rd_T37/.`.
+3. Copy the Slarti output files. These files should now be saved on your local computer. Use `rcp` to send them on the cluster. `scp 300rd/* zz9999zz@krenek2002.u-bourgogne.fr:/work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T37/.`.
 
-4. Enter the directory `cd /work/crct/al1966po/foam/phanero/300rd/300rd_T36/BC_300rd_T37/` and rename 2 files: `mv tibds.R15.* tibds.R15.nc`and `mv initial.R15.* SEP1.R15.nc`.
+4. Enter the directory `cd /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T37/` and rename 2 files: `mv tibds.R15.* tibds.R15.nc`and `mv initial.R15.* SEP1.R15.nc`.
 
-Now, your boundary conditions are ready. In order to test them in this tutorial, we can simply adapt the paths used in the `EcN_8X` experiment that we previously set up. To that purpose, just edit file `run_params`: `TIME_INV` should new read `/work/crct/al1966po/foam/phanero/300rd/300rd_T36/BC_300rd_T37`.
+Now, your boundary conditions are ready. In order to test them in this tutorial, we can simply adapt the paths used in the `EcN_8X` experiment that we previously set up. To that purpose, just edit file `run_params`: `TIME_INV` should new read `/work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T37`.
 
 Make sure (with `qstat`) that the simulation is not currently running (or stop it using `qdel`) and launch it with `qsub pbs.foam16p.script`.
  
@@ -287,13 +303,13 @@ __With the slab model, ocean dynamics is not resolved. Please ignore this paragr
 
 The default field of initial salinity is Modern and defined in file `BC_300rd_T37/om3.salt24`.
 
-For paleo application, you will be interested in starting with a globally uniform ocean salinity field. Such a file, with a global salinity of 35 permil, is found in the files your previously downloaded, here: `UTIL/om3.salt35`. TO use it:
+For paleo applications, you will be interested in starting with a globally uniform ocean salinity field. Such file, with global salinity of 35 permil, is found in the files your previously downloaded, here: `UTIL/om3.salt35`. To use it:
 
-1. In your directory of boundary conditions (`/work/crct/al1966po/foam/phanero/300rd/300rd_T36/BC_300rd_T37`), delete default file: `rm om3.salt24`.
+1. In your directory of boundary conditions (`/work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T37`), delete default file: `rm om3.salt24`.
 
-2. Copy desired file: `cp UTIL/om3.salt35 /work/crct/al1966po/foam/phanero/300rd/300rd_T36/BC_300rd_T37/.'
+2. Copy desired file: `cp UTIL/om3.salt35 /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T37/.`.
 
-3. Create symbolic link: `ln -s om3.salt35 om3.salt24`. Actually, you could just `mv om3.salt35 om3.salt24` or `cp om3.salt35 om3.salt24`, but the symbolic link permits keeping track of the file you used. 
+3. Create symbolic link: `ln -s om3.salt35 om3.salt24` (since FOAM expects to find a file named `om3.salt24`). Actually, you could just `mv om3.salt35 om3.salt24` or `cp om3.salt35 om3.salt24`, but the symbolic link permits keeping track of the file  used. 
 
 ### Field of initial ocean temperature
 
@@ -301,7 +317,7 @@ Similarly, the default field of initial temperature is Modern and defined in fil
 
 I suggest to use a warm initial ocean (around 3 degrees warmer than expected equilibrium temperature) in order to ensure intense oceanic convection and a rapid deep-ocean temperature equilibrium.
 
-The FOAM model climatic sensitivity being around 3°C, I provide intiial temperature files very ~3 degrees. You can also create your own intial temperature fields using the Matlab and Python routines provided in directory `UTIL/NEWEQ`.
+The FOAM model climatic sensitivity being around 3°C, I provide initial temperature files every ~3 degrees. You can also create your own intial temperature fields using the Matlab and Python routines provided in directory `UTIL/NEWEQ`.
 
 1. First run the Matlab script `raw_om3_temp24.m`to generate a NetCDF file with the expected temperature data.
 
@@ -311,7 +327,45 @@ The FOAM model climatic sensitivity being around 3°C, I provide intiial tempera
 
 ## Checking for equilibrium
 
+After 2000 model years of simulation, you will be interested in checking for deep-ocean thermal equilibrium. To that purpose:
+
+1. Generate time series by copying file `UTIL/EvolBis.py`into your `history/ocean` model output directory and running it with `python EvolBis.py`. It will take a while and output a file named `history.ocean.evol.an001a2000.nc`.
+
+2. Plot the time-evolution of temperature over the water column using the script `UTIL/checkevol.py` (which looks for the file that you previously created, `history.ocean.evol.an001a2000.nc`).
+
+You will get a figure like the one below, also displaying the deep-ocean temperature drift. The latter should be very small.
+
+<img src="/assets/images/documentation/model/FOAM_checkevol.png"
+     alt="Slarti Screenshot"
+     style="float: left; margin-right: 10px;" />
+
+If equilibrium has not been reached after 2000 model years, you have several options:
+
+1. Give up and go and play outside.
+
+2. Restarting the simulation for another, say, 1000 years. To do that, just edit file `run_params`. `FILTPHIS` and `INITIAL` should be set to `F`, `FINISHED` to 2000 years and `RUNLNG` to 1000 additional years:
+
+```fortran
+RESTFRQ: 360
+HISTFRQ: 360
+FILTPHIS: F
+INITIAL: F
+PREFIX: /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/EcN_8X
+STORAGE: /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/EcN_8X
+TIME_INV: /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T36
+FINISHED: 720000
+RUNLNG: 360000
+```
+
+3. If you think the issue comes from bad initial conditions (e.g., too warm an initial ocean), you can use this knowledge to run a new simulation with better-suited initial conditions.
+
 ## Generating output files
+
+As any GCM, FOAM displays some internal variabiliuty. In order to get 'climatology' files, we will have to calculate mean monthly values over the last 30–50 years. It will require 2 steps:
+
+### Running the model with monthly output
+
+### Generating climatology files
 
 # Debugging
 
