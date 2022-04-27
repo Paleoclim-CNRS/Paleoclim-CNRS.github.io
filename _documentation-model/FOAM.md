@@ -11,6 +11,8 @@ This page is not intended to replace the officiel [FOAM user guide](https://wiki
 
 Information on the CCUB cluster can be found [here](https://ccub.u-bourgogne.fr/dnum-ccub/spip.php?article959).
 
+Although the tutorial is built with many sections for readibility, I suggest progressing linearly since knowhow acquired in section n will sometimes be useful for section n+1.
+
 [UNDER CONSTRUCTION; last updated: 26 April 2022]
 
 # Introduction
@@ -233,7 +235,7 @@ In case the simulation crashes, see section below.
 
 # Creating boundary and initial conditions
 
-We previously ran an experiment based on a provided direcvtory of boundary and initial conditions. It's now time to see how to create those from scratch.
+We previously ran an experiment based on a provided directory of boundary and initial conditions. It's now time to see how to create such a directory from scratch.
 
 ## Creating boundary conditions
 
@@ -329,11 +331,11 @@ The FOAM model climatic sensitivity being around 3°C, I provide initial tempera
 
 After 2000 model years of simulation, you will be interested in checking for deep-ocean thermal equilibrium. To that purpose:
 
-1. Generate time series by copying file `UTIL/EvolBis.py`into your `history/ocean` model output directory and running it with `python EvolBis.py`. It will take a while and output a file named `history.ocean.evol.an001a2000.nc`.
+1. Generate time series by copying file `UTIL/EvolBis.py` into your `history/ocean` model output directory and running it with `python EvolBis.py`. It will take a while and output a file named `history.ocean.evol.an001a2000.nc`.
 
 2. Plot the time-evolution of temperature over the water column using the script `UTIL/checkevol.py` (which looks for the file that you previously created, `history.ocean.evol.an001a2000.nc`).
 
-You will get a figure like the one below, also displaying the deep-ocean temperature drift. The latter should be very small.
+You will get a figure like the one below, also calculating the deep-ocean temperature drift over the last 100 years. The latter should be very small.
 
 <img src="/assets/images/documentation/model/FOAM_checkevol.png"
      alt="Slarti Screenshot"
@@ -343,19 +345,19 @@ If equilibrium has not been reached after 2000 model years, you have several opt
 
 1. Give up and go and play outside.
 
-2. Restarting the simulation for another, say, 1000 years. To do that, just edit file `run_params`. `FILTPHIS` and `INITIAL` should be set to `F`, `FINISHED` to 2000 years and `RUNLNG` to 1000 additional years:
+2. Restart the simulation for another, say, 1000 years. To do that, just edit file `run_params`. `FILTPHIS` and `INITIAL` should be set to `F`, `FINISHED` to 2000 years and `RUNLNG` to 1000 additional years:
 
-```fortran
-RESTFRQ: 360
-HISTFRQ: 360
-FILTPHIS: F
-INITIAL: F
-PREFIX: /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/EcN_8X
-STORAGE: /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/EcN_8X
-TIME_INV: /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T36
-FINISHED: 720000
-RUNLNG: 360000
-```
+    ```fortran
+    RESTFRQ: 360
+    HISTFRQ: 360
+    FILTPHIS: F
+    INITIAL: F
+    PREFIX: /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/EcN_8X
+    STORAGE: /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/EcN_8X
+    TIME_INV: /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T37
+    FINISHED: 720000
+    RUNLNG: 360000
+    ```
 
 3. If you think the issue comes from bad initial conditions (e.g., too warm an initial ocean), you can use this knowledge to run a new simulation with better-suited initial conditions.
 
