@@ -435,13 +435,13 @@ Sometimes, the model just crashes without known reason. In that case, just check
 
 ## Timestep issue
 
-Sometimes, the model crashed and an error like `point IJ out of bounds` shows up in the error files (`om3.out.4_8.0` or `pccm.out.0720000`, I can't remember). It means that you're not respecting the CFL criteria. In short, your model particle traveled over a distance longer than a grid point during the model integration time (time step).
+Sometimes, the model crashes and an error like `point IJ out of bounds` shows up in the error files (`om3.out.4_8.0` or `pccm.out.0720000`, I can't remember). It means that you're not respecting the CFL criteria. In short, your model particle traveled over a distance longer than a grid point during the model integration time (time step).
 
 In order to solve this issue, you can temporarily decrease the time step. In `atmos_params`, change the following:
 - `DTIME  =  1200.,` (instead of 1800);
 - `DIF4=1.E16,` (instead of 2.E16).
 
-Run the model for a few time steps and then revert to the standard values.
+Run the model for a few time steps and then revert back to the standard values.
 
 This workaround is useful in the presence of a sea-ice front located at the mid latitudes (which generates very strong temperature contrasts and winds/currents) or when simulating a very, very warm climate.
 
@@ -449,9 +449,9 @@ This workaround is useful in the presence of a sea-ice front located at the mid 
 
 Another usual issue, which will probably show up in your first fully coupled model simulations due to small mistakes in Slarti.
 
-An isolated ocean point in the land-sea mask, or a deep ocean point surrounded by shallower grid points, or a very flat bathymetry at the tropics (with negative P-E balance) or at the high latitudes (with sea-ice formation and associated salt fluxes), will lead to the excessive accumulation of salt and make the model crash.
+An isolated ocean point in the land-sea mask, or a deep ocean point surrounded by shallower ocean grid points, or a very flat bathymetry at the tropics (with negative P-E balance) or at the high latitudes (with sea-ice formation and associated salt fluxes), will lead to the excessive accumulation of salt and make the model crash.
 
-This issue can generally be spotted by plotting the maximum salinity over the whole water column, and corrected by going back to Slarti, correcting the boundary conditions, and running a new simulations using these corrected boundary conditions.
+This issue can generally be spotted by plotting the maximum salinity over the whole water column, and corrected by going back to Slarti, correcting the boundary conditions locally, and running a new simulations using these corrected boundary conditions.
 
 # Known issues
 
@@ -467,9 +467,9 @@ Too long a path (e.g., `/work/crct/zz9999zz/foammmmmmmmm/phanero/300rd/300rd_T36
 
 # Looking at the model output
 
-The FOAM model output consists in standard, self-describing and cross-platform NetCDF files. You can use various tools to open such files and generates figures and diagnostics. Here is a short selection:
+The FOAM model output consists in standard, self-describing and cross-platform NetCDF files. You can use various tools to open such files and generate figures and diagnostics. Here is a short selection:
 
-1. The legacy software used to treat the FOAM output is the very convenient and simple scipting language [Ferret](https://ferret.pmel.noaa.gov/Ferret/). PyFerret is just an upgrade but remains largely similar.
+1. The legacy software used to treat the FOAM output is the very convenient and simple scripting language [Ferret](https://ferret.pmel.noaa.gov/Ferret/), which can be installed on Linux clusters or even locally, including on MacOS. PyFerret is just an upgrade but remains largely similar.
 
 2. A more complex but way more powerful tool is Python.
 
@@ -477,7 +477,7 @@ The FOAM model output consists in standard, self-describing and cross-platform N
 
 4. If you're looking for a graphical interface, [Panoply](https://www.giss.nasa.gov/tools/panoply/) could do the job.
 
-5. A more complex but way more powerful tool with graphical interface is a GIS, such as QGIS (free) or ArcGIS (very expensive).
+5. A more complex but more powerful tool with graphical interface is a GIS, such as QGIS (free) or ArcGIS (very expensive).
 
 # References using FOAM
 
