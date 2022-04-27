@@ -277,6 +277,10 @@ __The slab model has no routing and lakes can exist. However, it means that you 
 
 Importantly, you can use the directory of boundary conditions provided with this tutorial (`BC_300rd_T36.tar.gz`) to look at the expected Slarti output. To that purpose, open Slarti and `File/Open`, find uncompressed directory `BC_300rd_T36` and open file `300rd.case`. 
 
+#### Building the resulting topography/bathymetry NetCDF file. 
+
+With Ferret, run script `UTIL/TopoBathyBuild_Cor.jnl`, using your Slarti directory file in input, to generate the 2D topography/bathymetry NetCDF file with the paleogeography created in Slarti.
+
 ### Gathering required files
 
 Let's gather all required files in a directory (just as you previous used directory `BC_300rd_T36` (uncompressed from `BC_300rd_T36.tar.gz`).
