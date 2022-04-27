@@ -361,7 +361,7 @@ If equilibrium has not been reached after 2000 model years, you have several opt
 
 3. If you think the issue comes from bad initial conditions (e.g., too warm an initial ocean), you can use this knowledge to run a new simulation with better-suited initial conditions (just change the `om3.temp24` file and start the simulation from scratch; previous output files with be overwritten).
 
-__With the slab model, you can check for equilibrium using `UTIL/NewMoisSlab.py`, but it's not even necessary and subsequently using the output time-series NetCDF file to plot the time-evolution of atmospheric surface temperature `TS1`.__
+__With the slab model, you can check for equilibrium using `UTIL/NewMoisSlab.py` (but it's not even necessary) and subsequently using the output time-series NetCDF file to plot the time-evolution of atmospheric surface temperature `TS1`.__
 
 ## Generating output files
 
@@ -383,10 +383,12 @@ Edit file `run_params` (or create a new one, named for instance `run2`) as follo
     RUNLNG: 18000
     ```
 
-- `HISTFRQ`: set to 30 for monthly output (every 30 days).
-- `RUNLNG`: 18000 days (50 years of 360 days).
+    - `HISTFRQ`: set to 30 for monthly output (every 30 days).
+    - `FILTPHIS` and `INITIAL`: set to `F` for a restart.
+    - `FINISHED`: restarting from year 2000. 
+    - `RUNLNG`: 18 000 days (50 years of 360 days each).
 
-Then, submit `pbs.foam16p.script` (if you created a new `run2` file, you have to make sure that `pbs.foam16p.script`, or a newly-created `pbs2`file, call the right parameters, here `run2`). It will take around 4 hours to run for 50 years.
+Then, submit `pbs.foam16p.script` (if you created a new `run2` file, you have to make sure that `pbs.foam16p.script`, or a newly-created `pbs2` file, calls the right parameters, here `run2`). It will take around 4 hours to run for 50 years.
 
 Important remark: With the CCUB, some `restart/atmos` files are not named properly. Check for any issue before restarting an experiment. Indeed, each atmospheric restart should consist in two files (here for year 2000) `restart.atmos.0720000.A` and `restart.atmos.0720000`. Typically, `restart.atmos.0720000` will be incorrectly named `r2001`. Just `mv r2001 restart.atmos.0720000`, or `ln -s r2001 restart.atmos.0720000`.
 
