@@ -21,7 +21,7 @@ This tutorial describes how to run the Fast Ocean Atmosphere Model (Jacob, 1997)
 
 Please note that the FOAM source code is not freely available. The code developer, [Robert Jacob](https://www.anl.gov/profile/robert-l-jacob), plans to upload it on GitHub soon. In the meantime, you can contact [me](https://alexpohl.github.io/) if you are interested in collaborating, obtaining the model code and accessing the CCUB cluster.
 
-The tutorial is designed as follows: baseline instructions are given for the fully coupled model (with deep ocean), and additional details are provided where applicable for the slab mixed-layer ocean model.
+The tutorial is designed as follows: baseline instructions are given for the fully coupled model (with deep ocean), and additional details are provided where applicable (in bold) for the slab mixed-layer ocean model.
 
 # Requirements
 
@@ -359,15 +359,68 @@ If equilibrium has not been reached after 2000 model years, you have several opt
     RUNLNG: 360000
     ```
 
-3. If you think the issue comes from bad initial conditions (e.g., too warm an initial ocean), you can use this knowledge to run a new simulation with better-suited initial conditions.
+3. If you think the issue comes from bad initial conditions (e.g., too warm an initial ocean), you can use this knowledge to run a new simulation with better-suited initial conditions (just change the `om3.temp24` file and start the simulation from scratch; previous output files with be overwritten).
+
+__With the slab model, you can check for equilibrium using `UTIL/NewMoisSlab.py`, but it's not even necessary and subsequently using the output time-series NetCDF file to plot the time-evolution of atmospheric surface temperature `TS1`.__
 
 ## Generating output files
 
-As any GCM, FOAM displays some internal variabiliuty. In order to get 'climatology' files, we will have to calculate mean monthly values over the last 30–50 years. It will require 2 steps:
+As any GCM, FOAM displays some internal variability. In order to get 'climatology' files, we will have to calculate mean monthly values over the last 30–50 years – personally and below, I use 50 years. It will require 2 steps:
 
 ### Running the model with monthly output
 
+Edit file `run_params` (or create a new one, named for instance `run2`) as follows:
+
+    ```fortran
+    RESTFRQ: 360
+    HISTFRQ: 30
+    FILTPHIS: F
+    INITIAL: F
+    PREFIX: /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/EcN_8X
+    STORAGE: /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/EcN_8X
+    TIME_INV: /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T37
+    FINISHED: 720000
+    RUNLNG: 18000
+    ```
+
+- `HISTFRQ`: set to 30 for monthly output (every 30 days).
+- `RUNLNG`: 18000 days (50 years of 360 days).
+
+Then, submit `pbs.foam16p.script` (if you created a new `run2` file, you have to make sure that `pbs.foam16p.script`, or a newly-created `pbs2`file, call the right parameters, here `run2`). It will take around 4 hours to run for 50 years.
+
+Important remark: With the CCUB, some `restart/atmos` files are not named properly. Check for any issue before restarting an experiment. Indeed, each atmospheric restart should consist in two files (here for year 2000) `restart.atmos.0720000.A` and `restart.atmos.0720000`. Typically, `restart.atmos.0720000` will be incorrectly named `r2001`. Just `mv r2001 restart.atmos.0720000`, or `ln -s r2001 restart.atmos.0720000`.
+
+__With the slab model, you previously ran the model for 100 years with monthly output. No need to run an additional job, then. Climatology will be calculated over the last 50 years, see below__
+
 ### Generating climatology files
+
+We generate climatology files for each model component: ocean, atmosphere and coupler, by calculating monthly means over the last 50 model years.
+
+1. Once the monthly output generated, copy the python script `UTIL/NewMois.py` into your ocean output directory (`cp UTIL/NewMois.py /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/EcN_8X/history/ocean`), check that everything is OK (see code and explanations below) ) and run the script (`python NewMois.py`).
+
+    ```python
+    prefix = 'history.ocean.'
+    year = 2000
+    nyears = 50
+    endname ='300rd_1368W_EccN_ocean_2240ppm.nc'
+    ```
+
+- `prefix`: to be adjusted, `ocean`, `atmos` or `coupl`.
+- `year`: duration of the spinup (long run with annual output), here 2000 years.
+- `nyears`: duration of the short run with monthly output, here 50 years.
+- `endname`: name of the output climatology file; to be adjusted, including `ocean`, `atmos` or `coupl`.
+
+2. Then, `cp NewMois.py ../atmos/.`, `cd ../atmos/.` and edit `NewMois.py`: `prefix = 'history.atmos.'` and `endname ='300rd_1368W_EccN_atmos_2240ppm.nc'`. Run the script.
+
+3. Do the same for the coupler (`cp NewMois.py ../coupl/.` etc.).
+
+As a result, the output of each FOAM experiment is presented in the form of 3 files, each associated with a given model component, and each having specific variables: 
+
+- '300rd_1368W_EccN_ocean_2240ppm.nc';
+- '300rd_1368W_EccN_atmos_2240ppm.nc';
+- '300rd_1368W_EccN_coupl_2240ppm.nc'.
+
+__With the slab model, use `NewMoisSlab.py` and skip step #1 (there is no oceanic output). As a result, the output of each FOAM-slab experiment is presented in the form of only 2 (instead of 3) files.__ 
 
 # Debugging
 
@@ -375,13 +428,77 @@ Different cases:
 
 ## Nothing bad happened
 
-## Timestep issue (sea ice, warm climate))
+Sometimes, the model just crashed without know reason. In that case, just check that `restart/atmos` files are well named (see Known Issues below) and restart the experiment. 
+
+## Timestep issue
+
+Sometimes, the model crashed and an error like `point IJ out of bounds` shows up in the error files (`om3.out.4_8.0` or `pccm.out.0720000`, I can't remember). It means that you're not respecting the CFL criteria. In short, your model particle traveled over a distance longer than a grid point during the model integration time (time step).
+
+In order to solve this issue, you can temporarily decrease the time step. In `atmos_params`, change the following:
+- `DTIME  =  1200.,` (instead of 1800);
+- `DIF4=1.E16,` (instead of 2.E16).
+
+Run the model for a few time steps and then revert to the standard values.
+
+This workaround is useful in the presence of a sea-ice front located at the mid latitudes (which generates very strong temperature contrasts and winds/currents) or when simulating a very, very warm climate.
 
 ## Salt anomaly
 
+Another usual issue, which will probably show up in your first fully coupled model simulations due to small mistakes in Slarti.
+
+An isolated ocean point in the land-sea mask, or a deep ocean point surrounded by shallower grid points, or a very flat bathymetry at the tropics (with negative P-E balance) or at the high latitudes (with sea-ice formation and associated salt fluxes), will lead to the excessive accumulation of salt and make the model crash.
+
+This issue can generally be spotted by plotting the maximum salinity over the whole water column, and corrected by going back to Slarti, correcting the boundary conditions, and running a new simulations using these corrected boundary conditions.
+
+# Known issues
+
+## Restart files
+
+With the CCUB, some `restart/atmos` files are not named properly, which makes the model crash upon restart.
+
+Check for any issue before restarting an experiment. Indeed, each atmospheric restart should consist in two files (here for year 2000) `restart.atmos.0720000.A` and `restart.atmos.0720000`. Typically, `restart.atmos.0720000` will be incorrectly named `r2001`. Just `mv r2001 restart.atmos.0720000`, or `ln -s r2001 restart.atmos.0720000`.
+
+## Too long a name
+
+Too long a path (e.g., `/work/crct/zz9999zz/foammmmmmmmm/phanero/300rd/300rd_T36/EcN_8X`) will make the model crash with no explicit error message.
+
 # Looking at the model output
+
+The FOAM model output consists in standard, self-describing and cross-platform NetCDF files. You can use various tools to open such files and generates figures and diagnostics. Here is a short selection:
+
+1. The legacy software used to treat the FOAM output is the very convenient and simple scipting language [Ferret](https://ferret.pmel.noaa.gov/Ferret/). PyFerret is just an upgrade but remains largely similar.
+
+2. A more complex but way more powerful tool is Python.
+
+3. You can also think about R (free), Matlab (expensive) and others (Scilab, NCL etc.).
+
+4. If you're looking for a graphical interface, [Panoply](https://www.giss.nasa.gov/tools/panoply/) could do the job.
+
+5. A more complex but way more powerful tool with graphical interface is a GIS, such as QGIS (free) or ArcGIS (very expensive).
 
 # References using FOAM
 
+Here is a (non-exhaustive) list of references illustrating the use of FOAM:
+
+- Chaboureau, A.C., Donnadieu, Y., Sepulchre, P., Robin, C., Guillocheau, F. and Rohais, S. 2012. The Aptian evaporites of the South Atlantic: A climatic paradox? Climate of the Past, 8, 1047–1058, https://doi.org/10.5194/cp-8-1047-2012.
+- Dal Corso, J., Mills, B.J.W., Chu, D., Newton, R.J. and Song, H. 2022. Background Earth system state amplified Carnian (Late Triassic) environmental changes. Earth and Planetary Science Letters, 578, 117321, https://doi.org/10.1016/j.epsl.2021.117321.
+- Donnadieu, Y., Pucéat, E., Moiroud, M., Guillocheau, F. and Deconinck, J.F. 2016. A better-ventilated ocean triggered by Late Cretaceous changes in continental configuration. Nature Communications, 7, 10316, https://doi.org/10.1038/ncomms10316.
+- Goddéris, Y., Donnadieu, Y., Le Hir, G., Lefebvre, V. and Nardin, E. 2014. The role of palaeogeography in the Phanerozoic history of atmospheric CO2 and climate. Earth-Science Reviews, 128, 122–138, https://doi.org/10.1016/j.earscirev.2013.11.004.
+- Hearing, T.W., Harvey, T.H.P., et al. 2018. An early Cambrian greenhouse climate. Science Advances, 4, eaar5690, https://doi.org/10.1126/sciadv.aar5690.
+- Ladant, J.-B. and Donnadieu, Y. 2016. Palaeogeographic regulation of glacial events during the Cretaceous supergreenhouse. Nature communications, 7, 12771.
+- Le Hir, G., Donnadieu, Y., et al. 2009. The snowball Earth aftermath: Exploring the limits of continental weathering processes. Earth and Planetary Science Letters, 277, 453–463, https://doi.org/10.1016/j.epsl.2008.11.010.
+- Le Hir, G., Donnadieu, Y., Goddéris, Y., Meyer-Berthaud, B., Ramstein, G. and Blakey, R.C. 2011. The climate change caused by the land plant invasion in the Devonian. Earth and Planetary Science Letters, 310, 203–212, https://doi.org/10.1016/j.epsl.2011.08.042.
+- Lee, S.-Y. and Poulsen, C.J. 2006. Sea ice control of Plio–Pleistocene tropical Pacific climate evolution. Earth and Planetary Science Letters, 248, 253–262.
+- Licht, A., van Cappelle, M., et al. 2014. Asian monsoons in a late Eocene greenhouse world. Nature, 513, 501–506.
+- ills, B.J.W., Donnadieu, Y. and Goddéris, Y. 2021. Spatial continuous integration of Phanerozoic global biogeochemistry and climate. Gondwana Research, https://doi.org/10.1016/j.gr.2021.02.011.
+- Nardin, E., Goddéris, Y., Donnadieu, Y., Le Hir, G., Blakey, R.C., Pucéat, E. and Aretz, M. 2011. Modeling the early Paleozoic long-term climatic trend. Bulletin of the Geological Society of America, 123, 1181–1192, https://doi.org/10.1130/B30364.1.
+- Pohl, A., Donnadieu, Y., Le Hir, G., Buoncristiani, J.F. and Vennin, E. 2014. Effect of the Ordovician paleogeography on the (in)stability of the climate. Climate of the Past, 10, 2053–2066.
+- Pohl, A., Donnadieu, Y., et al. 2020. Carbonate platform production during the Cretaceous. GSA Bulletin, 132, 2606–2610, https://doi.org/10.1130/B35680.1.
+- Pohl, A., Lu, Z., et al. 2021. Vertical decoupling in Late Ordovician anoxia due to reorganization of ocean circulation. Nature Geoscience, 14, https://doi.org/10.1038/s41561-021-00843-9.
+- Poulsen, C.J., Pierrehumbert, R.T. and Jacob, R.L. 2001. Impact of ocean dynamics on the simulation of the neoprotozoic ‘snowball earth’. Geophysical Research Letters, 28, 1575–1578, https://doi.org/10.1029/2000GL012058.
+- Poulsen, C.J., Gendaszek, A.S. and Jacob, R.L. 2003. Did the rifting of the Atlantic Ocean cause the Cretaceous thermal maximum? Geology, 31, 115–118.
+- Saupe, E.., Qiao, H.., et al. 2019. Extinction intensity during Ordovician and Cenozoic glaciations explained by cooling and palaeogeography. Nature Geoscience, 13, 65–70, https://doi.org/10.1038/s41561-019-0504-6.
+- Wong Hearing, T.W., Pohl, A., et al. 2021. Quantitative comparison of geological data and model simulations constrains early Cambrian geography and climate. Nature Communications, 12, 3868, https://doi.org/10.1038/s41467-021-24141-5.
+- Zacaï, A., Monnet, C., Pohl, A., Beaugrand, G., Mullins, G., Kroeck, D.M. and Servais, T. 2021. Truncated bimodal latitudinal diversity gradient in early Paleozoic phytoplankton. Science Advances, 7, eabd6709, https://doi.org/10.1126/sciadv.abd6709.
 
 
