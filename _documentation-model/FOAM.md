@@ -62,17 +62,17 @@ Remark: At some point, following cluster module updates, we will probably have t
 
 4. Compile: `Make foam`. Everything going well, you should get an executable called `foam1.5`, which you should move into your home root directory (`mv foam1.5 ../.` or alternatively `mv foam1.5 /user1/crct/zz9999zz/`.
 
-__For FOAM slab: `Make foamslab` and then `mv foam1.5slab /user1/crct/zz9999zz/.`.__
+__For FOAM slab: `Make foamslab` and then `mv foam1.5.slab /user1/crct/zz9999zz/.`.__
 
 Now, the model is compiled and ready to run. Let's see how to launch an experiment from a directory with all boundary and initial conditions ready. We'll see how to create these boundary and initial conditions later.
 
-In the following, you'll need an ensemble of files, which are downloadable [here](/assets/data/FOAM_files_26Apr2022.tar.gz).
+In the following, you'll need an ensemble of files, which are downloadable [here](/assets/data/FOAM_files).
 
 # Running an experiment from existing boundary and initial conditions
 
 ## Directory with boundary conditions and initial conditions
 
-In the archive that you previously downloaded ([here](/assets/data/FOAM_files_26Apr2022.tar.gz)), you will find a directory `BC_300rd_T36.tar.gz` containing all boundary and initial conditions required to run an random experiment at 300 Ma (taken from [this dataset](https://zenodo.org/record/5780097#.Ymjy9fNByCd). Place the (uncompressed) directory in your `WORKDIR` (the place where you will want to run your simulations; this is a Scratchdir, although files are not automatically deleted after a given duration, as is done on other clusters) at the following location (while creating required directories): `/work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T36` (or another location of your choice, I propose typical paths for illustration).
+In the archive that you previously downloaded ([here](/assets/data/FOAM_files)), you will find a directory `BC_300rd_T36.tar.gz` containing all boundary and initial conditions required to run an random experiment at 300 Ma (taken from [this dataset](https://zenodo.org/record/5780097#.Ymjy9fNByCd). Place the (uncompressed) directory in your `WORKDIR` (the place where you will want to run your simulations; this is a Scratchdir, although files are not automatically deleted after a given duration, as is done on other clusters) at the following location (while creating required directories): `/work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T36` (or another location of your choice, I propose typical paths for illustration).
 
 ## Run directory
 
@@ -243,7 +243,7 @@ Boundary conditions are model parameters that do not evolve during the simulatio
 
 Boundary conditions are created using a graphical interface named Slarti. The software `Slarti.jar` is included in the files you downloaded. It can be run on MacOS (`open Slarti.jar`) and Linux (and probably Windows, but who uses Windows?). I suggest using Slarti on your local computer for speed purposes when using the mouse.
 
-Slarti takes in input a DEM in the form of a netcdf with 128 x 128 grid points. One example file is provided with this turorial: `Topobathy_300eb_postslarti_cor.nc`.
+Slarti takes in input a DEM in the form of a NetCDF raster file with 128 x 128 grid points. One example file is provided with this turorial: `Topobathy_300eb_postslarti_cor.nc`.
 
 Remark: you can easily create a similar input file based on the paleoDEMS of [Scotese and Wright (2018)](https://www.earthbyte.org/paleodem-resource-scotese-and-wright-2018/), which you may want to regrid on a 128 x 128 grid using the `cdo remapbil` tool (module available on the CCUB as well).
      
@@ -254,7 +254,7 @@ Remark: you can easily create a similar input file based on the paleoDEMS of [Sc
      style="float: left; margin-right: 10px;" />
 
 {:start="2"}
-2. `Please enter the bathymetry/topography variable name`: `TOPO` in this example (you can get this info using the nco tool `ncdump -h Topobathy_300eb_postslarti_cor.nc`; nco available on the CCUB as well).
+2. `Please enter the bathymetry/topography variable name`: `TOPO` in this example (you can get this info using the nco tool `ncdump -h Topobathy_300eb_postslarti_cor.nc`; nco module available on the CCUB as well).
 
 3. `View-Edit/Mask`: You can `Highlight ocean cells with no current` and alter the land-sea mask manually. During this step, you have to make sure not to create any lakes, and that oceanic gateways are large enough to permit water flow (or just close them if that's better). Don't forget to `Compare and match files` and `File/Save` regularly, see step 4.
 
@@ -264,9 +264,9 @@ Remark: you can easily create a similar input file based on the paleoDEMS of [Sc
 
 6. `View-Edit/Bathymetry`: Best changing level by level in step 7.
 
-7. `View-Edit/Bathymetry Level View`: Level by level, make sure to avoid isolated ocean grid points where salt could accumulate, which would make the model drift and ultimately crash.
+7. `View-Edit/Bathymetry Level View`: Level by level, make sure to avoid isolated ocean grid points where salt could accumulate, which would make the model drift and ultimately crash (see [section below](https://paleoclim-cnrs.github.io/documentation-model/FOAM/#salt-anomaly)).
 
-8. `View-Edit/Topography`: can be altered here, but keep in mind that the atmosphere will see a lower-resolution version (only shown when saving). What you see in the topography seen by the coupler.
+8. `View-Edit/Topography`: Topography can be altered here, but keep in mind that the atmosphere will see a lower-resolution version (only shown when saving). What you see in the topography seen by the coupler.
 
 9. `View-Edit/River flow`: define the water routing manually, while making sure to avoid creating lakes. Please remember to `Compare and match files` when switching from one window to another one. For instance, changing the topography will automatically alter the river flow. Be aware of this. At any time, you can manually `List river flow lakes`. No lakes should be found in the final boundary conditions. If lakes are found, you have to get rid of them.
 
@@ -274,21 +274,21 @@ Remark: you can easily create a similar input file based on the paleoDEMS of [Sc
 
 __The slab model has no routing and lakes can exist. However, it means that you will not be able to run the fully coupled model using the same directory of boundary conditions. I suggest always preparing clean boundary conditions for the coupled model, even if you wanna run the slab version.__
 
-Importantly, you can use the directory of boundary conditions provided with this tutorial (`BC_300rd_T36.tar.gz`) to look at the expected Slarti output. To that purpose, open Slarti and `File/Open`, find uncompressed directory `BC_300rd_T36` and open file `300rd.case`. 
+Importantly, you can use the (uncompressed) directory of boundary conditions provided with this tutorial (`BC_300rd_T36`) to look at the expected Slarti output. To that purpose, open Slarti and `File/Open`, find uncompressed directory `BC_300rd_T36` and open file `300rd.case`. 
 
 #### Building the resulting topography/bathymetry NetCDF file. 
 
-With Ferret, run script `UTIL/TopoBathyBuild_Cor.jnl`, using your Slarti directory file in input, to generate the 2D topography/bathymetry NetCDF file with the paleogeography created in Slarti.
+With [Ferret](https://ferret.pmel.noaa.gov/Ferret/), run script `UTIL/TopoBathyBuild_Cor.jnl`, using your Slarti directory file in input, to generate the 2D topography/bathymetry NetCDF file with the paleogeography created in Slarti.
 
 ### Gathering required files
 
-Let's gather all required files in a directory (just as you previous used directory `BC_300rd_T36` (uncompressed from `BC_300rd_T36.tar.gz`).
+Let's gather all required files in a directory (just as you previously used directory `BC_300rd_T36` (uncompressed from `BC_300rd_T36.tar.gz`).
 
-1. Create a new directory `/work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T37`.
+1. Create a new directory `/work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T37`. Name is arbitrary here, do not search for any meaning.
 
 2. Copy a series of requested files available in the files you previously downloaded: `cp TOADD/* /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T37/.`
 
-3. Copy the Slarti output files. These files should now be saved on your local computer. Use `rcp` to send them on the cluster. `scp 300rd/* zz9999zz@krenek2002.u-bourgogne.fr:/work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T37/.`.
+3. Copy the Slarti output files. These files should normally now be saved on your local computer. Use `rcp` to send them on the cluster. `scp 300rd/* zz9999zz@krenek2002.u-bourgogne.fr:/work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T37/.`.
 
 4. Enter the directory `cd /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T37/` and rename 2 files: `mv tibds.R15.* tibds.R15.nc`and `mv initial.R15.* SEP1.R15.nc`.
 
@@ -302,11 +302,11 @@ Initial conditions define model 'starting' conditions, for instance ocean temper
 
 You will be interested in 2 specific files defining ocean initial salinity and temperature.
 
-__With the slab model, ocean dynamics is not resolved. Please ignore this paragraph on the model initial conditions__
+__With the slab model, ocean dynamics are not resolved. Please ignore this paragraph on the model initial conditions__
 
 ### Field of initial salinity
 
-The default field of initial salinity is Modern and defined in file `BC_300rd_T37/om3.salt24`.
+The default field of initial salinity is Modern and defined in file `BC_300rd_T37/om3.salt24` (previous copied from the `TOADD` directory).
 
 For paleo applications, you will be interested in starting with a globally uniform ocean salinity field. Such file, with global salinity of 35 permil, is found in the files your previously downloaded, here: `UTIL/om3.salt35`. To use it:
 
@@ -324,7 +324,7 @@ I suggest to use a warm initial ocean (around 3 degrees warmer than expected equ
 
 The FOAM model climatic sensitivity being around 3°C, I provide initial temperature files every ~3 degrees. You can also create your own intial temperature fields using the Matlab and Python routines provided in directory `UTIL/NEWEQ`.
 
-1. First run the Matlab script `raw_om3_temp24.m`to generate a NetCDF file with the expected temperature data.
+1. First run the Matlab script `raw_om3_temp24.m` to generate a NetCDF file with the expected temperature data.
 
 2. Then, run the Python script `AP_theoretical_nc_to_om3.py` to convert the NetCDF into a binary file `om3.temp24` that can be read by FOAM.
 
@@ -362,9 +362,9 @@ If equilibrium has not been reached after 2000 model years, you have several opt
     RUNLNG: 360000
     ```
 
-3. If you think the issue comes from bad initial conditions (e.g., too warm an initial ocean), you can use this knowledge to run a new simulation with better-suited initial conditions (just change the `om3.temp24` file and start the simulation from scratch; previous output files with be overwritten).
+3. If you think the issue comes from inadequate initial conditions (e.g., too warm an initial ocean), you can use this knowledge to run a new simulation with better-suited initial conditions (just change the `om3.temp24` file and start the simulation from scratch; previous output files with be overwritten).
 
-__With the slab model, you can check for equilibrium using `UTIL/NewMoisSlab.py` (but it's not even necessary) and subsequently using the output time-series NetCDF file to plot the time-evolution of atmospheric surface temperature `TS1`.__
+__With the slab model, you can check for equilibrium by running `UTIL/EvolSlab.py` in your `history/atmos` model output folder and subsequently using the output time-series NetCDF file to plot the time-evolution of atmospheric surface temperature `TS1` (but it's not even necessary, the slab model will reach equilibrium in 50 years).__
 
 ## Generating output files
 
