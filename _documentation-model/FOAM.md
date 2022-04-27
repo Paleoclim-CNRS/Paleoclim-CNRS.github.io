@@ -21,8 +21,6 @@ Please note that the FOAM source code is not freely available. The code develope
 
 The tutorial is designed as follows: baseline instructions are given for the fully coupled model (with deep ocean), and additional details are provided where applicable (in bold) for the slab mixed-layer ocean model.
 
-Resource and files for this tutorial should be downloaded [here](/assets/data/FOAM_files_26Apr2022.tar.gz).
-
 # Requirements
 
 Before starting anything, you need to correctly configure your environment by loading the appropriate modules:
@@ -49,7 +47,7 @@ Remark: At some point, following cluster module updates, we will probably have t
 
 # Installing and compiling
 
-1. Download and uncompress the model source `tar xfvz foam1.5src.tar.gz` (not freely available to date, see page header) in your home directory `/user1/crct/zz9999zz` (replace `zz9999zz` with your CCUB login).
+1. Download and uncompress the model source `tar xfvz foam1.5src.tar.gz` (not freely available to date, see page header) in your home directory `/user1/crct/zz9999zz` (replace `zz9999zz` with your CCUB login). Then, enter the directory `cd foam1.5src`.
 
 2. On the CCUB cluster, you should be all set with libraries correctly linked in the `Makefile` on lines 190–192:
 
@@ -64,17 +62,17 @@ Remark: At some point, following cluster module updates, we will probably have t
 
 4. Compile: `Make foam`. Everything going well, you should get an executable called `foam1.5`, which you should move into your home root directory (`mv foam1.5 ../.` or alternatively `mv foam1.5 /user1/crct/zz9999zz/`.
 
-__For FOAM slab: `Make foamslab` and then `mv foam1.5 /user1/crct/zz9999zz/foam1.5.slab` (renaming avoids confusion with the executable of the fully coupled model).__
+__For FOAM slab: `Make foamslab` and then `mv foam1.5slab /user1/crct/zz9999zz/.`.__
 
 Now, the model is compiled and ready to run. Let's see how to launch an experiment from a directory with all boundary and initial conditions ready. We'll see how to create these boundary and initial conditions later.
 
-In the following, you'll need an ensemble of files, which are downloadable [here](/assets/data/FOAM_files_26Apr2022.tar.gz)
+In the following, you'll need an ensemble of files, which are downloadable [here](/assets/data/FOAM_files_26Apr2022.tar.gz).
 
 # Running an experiment from existing boundary and initial conditions
 
 ## Directory with boundary conditions and initial conditions
 
-In the archive that you previously downloaded [here](/assets/data/FOAM_files_26Apr2022.tar.gz), you will find a directory `BC_300rd_T36.tar.gz` containing all boundary and initial conditions required to run an random experiment at 300 Ma (taken from [this dataset](https://zenodo.org/record/5780097#.Ymjy9fNByCd). Place the (uncompressed directory in your `WORKDIR` (the place where you will want to run your simulations; this is a Scratchdir, although files are not automatically deleted after a given duration, as is done on other clusters) at the following location (while creating required directories): `/work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T36` (or another location of your choice, I propose typical paths for illustration).
+In the archive that you previously downloaded ([here](/assets/data/FOAM_files_26Apr2022.tar.gz)), you will find a directory `BC_300rd_T36.tar.gz` containing all boundary and initial conditions required to run an random experiment at 300 Ma (taken from [this dataset](https://zenodo.org/record/5780097#.Ymjy9fNByCd). Place the (uncompressed) directory in your `WORKDIR` (the place where you will want to run your simulations; this is a Scratchdir, although files are not automatically deleted after a given duration, as is done on other clusters) at the following location (while creating required directories): `/work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T36` (or another location of your choice, I propose typical paths for illustration).
 
 ## Run directory
 
@@ -103,7 +101,7 @@ RUNLNG: 720000
 ```
 - `RESTFRQ`: the FOAM model year is 360 days.
 - `HISTFRQ`: writing model output every year / 360 days.
-- `FILTPHIS` and `INITIAL` set to TRUE for a new (i.e., not restarted) simulation (we filter boundary conditions).
+- `FILTPHIS` and `INITIAL` set to `T(RUE)` for a new (i.e., not restarted) simulation (we filter boundary conditions).
 - `PREFIX`: path to run directory.
 - `STORAGE`: path to run directory.
 - `TIME_INV`: path to boundary conditions directory.
@@ -173,7 +171,7 @@ For the purpose of this turorial, you do not need to change anything.
 ```
 
 - `CO2VMR = 2240e-06`: Atmospheric CO2 is set to 2240 ppm.
-- `1368e+03`: The solar constant is set to Modern (1368 W m-2).
+- `1368e+03`: The solar constant is set to Modern (1368 W m-2). Note that this value should be changed for paleo applications.
 - `ECCEN = 0`: Eccentricity is zero.
 - `OBLIQ = 22`: Obliquity is 22°.
 - `MVELP = 90` and `DAYP = 0`: longitude of perihelion which has no impact here due to the null eccentricity (more info [here](https://wiki.mcs.anl.gov/FOAM/index.php/Users_Guide)).
@@ -231,7 +229,7 @@ To abort the run, `qdel job-ID`, with `job-ID`being the job number (e.g. 7013515
 
 It will take approximatively 4 days to run for 2000 model years. Output is written in the `history`output directories (one file every 3 to 4 minutes). Useful information can be found during the run in output files `om3.out.4_8.0`and `pccm.out.0720000`.
 
-In case the simulation crashes, see section below.
+Should the simulation crash, see [section below](https://paleoclim-cnrs.github.io/documentation-model/FOAM/#debugging).
 
 # Creating boundary and initial conditions
 
