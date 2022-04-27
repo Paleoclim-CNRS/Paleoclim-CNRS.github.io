@@ -7,7 +7,7 @@ toc_sticky: true
 
 A FOAM User-guide at U. Bourgogne.
 
-[last updated: 26 April 2022]
+[UNDER CONSTRUCTION; last updated: 26 April 2022]
 
 # Introduction
 
@@ -208,16 +208,15 @@ Boundary conditions are created using a graphical interface named Slarti. The so
 
 Slarti takes in input a DEM in the form of a netcdf with 128 x 128 grid points. One example file is provided with this turorial: `Topobathy_300eb_postslarti_cor.nc`.
 
+Remark: you can easily create a similar input file based on the paleoDEMS of [Scotese and Wright (2018)](https://www.earthbyte.org/paleodem-resource-scotese-and-wright-2018/), which you may want to regrid on a 128 x 128 grid using the `cdo remapbil`tools (module available on the CCUB as well).
 
 1. `File/New`, 128x128, R15, Bathymetry/Topography, `Topobathy_300eb_postslarti_cor.nc`, NetCDF, no Optional Input, click OK (see screenshot below).
-
-Remark: you can easily create a similar input file based on the paleoDEMS of [Scotese and Wright (2018)](https://www.earthbyte.org/paleodem-resource-scotese-and-wright-2018/), which you may want to regrid on a 128 x 128 grid using the `cdo remapbil`tools (module available on the CCUB as well).
 
 2. `Please enter the bathymetry/topography variable name`: `TOPO` in this example (you can get this info using the nco tool `ncdump -h Topobathy_300eb_postslarti_cor.nc`; nco available on the CCUB as well).
 
 3. `View-Edit/Mask`: You can `Highlight ocean cells with no current` and alter the land-sea mask manually. During this step, you have to make sure not to create any lakes, and that gateways are large enough to permit water flow (or just close them is that's better). Don't forget to `Compare and match files` and save regularly, see step 4.
 
-4. `File/Save`; Save for Coupled Run` > OK > OK > lakes can be found at this stage, close window and `Continue` > OK > Next > OK > OK (you may need to enlarge the windows to see the button appear), define path (e.g., `/Users/username/Desktop/300eb`) and OK
+4. `File/Save`; Save for Coupled Run > OK > OK > lakes can be found at this stage, close window and `Continue` > OK > Next > OK > OK (you may need to enlarge the windows to see the button appear), define path (e.g., `/Users/username/Desktop/300eb`) and OK
 
 5. `View-Edit/Vegetation`: Leave unchanged for a theoretical latitudinal distribution like today, or alter for deep-time slices (e.g. rocky desert in the Cambrian in the absence of land plants).
 
