@@ -282,7 +282,7 @@ With [Ferret](https://ferret.pmel.noaa.gov/Ferret/), run script `UTIL/TopoBathyB
 
 ### Gathering required files
 
-Let's gather all required files in a directory (just as you previously used directory `BC_300rd_T36` (uncompressed from `BC_300rd_T36.tar.gz`).
+Let's gather all required files in a directory (just as you previously used directory `BC_300rd_T36`, uncompressed from `BC_300rd_T36.tar.gz`).
 
 1. Create a new directory `/work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T37`. Name is arbitrary here, do not search for any meaning.
 
@@ -393,15 +393,15 @@ Edit file `run_params` (or create a new one, named for instance `run2`) as follo
 
 Then, submit `pbs.foam16p.script` (if you created a new `run2` file, you have to make sure that `pbs.foam16p.script`, or a newly-created `pbs2` file, calls the right parameters, here `run2`). It will take around 4 hours to run for 50 years.
 
-Important remark: With the CCUB, some `restart/atmos` files are not named properly. Check for any issue before restarting an experiment. Indeed, each atmospheric restart should consist in two files (here for year 2000) `restart.atmos.0720000.A` and `restart.atmos.0720000`. Typically, `restart.atmos.0720000` will be incorrectly named `r2001`. Just `mv r2001 restart.atmos.0720000`, or `ln -s r2001 restart.atmos.0720000`.
+Important remark: With the CCUB, some `restart/atmos` files are not named properly. Check for any issue before restarting an experiment. Indeed, each atmospheric restart should consist in two files (here for year 2000) `restart.atmos.0720000.A` and `restart.atmos.0720000`. Typically, `restart.atmos.0720000` will be incorrectly named `r2001`, or similar. Just `mv r2001 restart.atmos.0720000`, or `ln -s r2001 restart.atmos.0720000`.
 
-__With the slab model, you previously ran the model for 100 years with monthly output. No need to run an additional job, then. Climatology will be calculated over the last 50 years, see below__
+__With the slab model, you previously ran the model for 100 years with monthly output. No need to run an additional job, then. Climatology will be calculated over the last 50 years, see below.__
 
 ### Generating climatology files
 
 We generate climatology files for each model component: ocean, atmosphere and coupler, by calculating monthly means over the last 50 model years.
 
-1. Once the monthly output generated, copy the python script `UTIL/NewMois.py` into your ocean output directory (`cp UTIL/NewMois.py /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/EcN_8X/history/ocean`), check that everything is OK (see code and explanations below) ) and run the script (`python NewMois.py`).
+1. Once the monthly output generated, copy the python script `UTIL/NewMois.py` into your ocean output directory (`cp UTIL/NewMois.py /work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/EcN_8X/history/ocean`), check that everything is OK (see code and explanations below) and run the script (`python NewMois.py`).
 
     ```python
     prefix = 'history.ocean.'
@@ -420,7 +420,7 @@ We generate climatology files for each model component: ocean, atmosphere and co
 
 3. Do the same for the coupler (`cp NewMois.py ../coupl/.` etc.).
 
-As a result, the output of each FOAM experiment is presented in the form of 3 files, each associated with a given model component, and each containing specific variables (oceanic variables for the ocean etc.): 
+As a result, the output of each FOAM experiment is presented in the form of 3 files, each associated with a given model component, and each containing specific variables (oceanic variables for the ocean output file etc.): 
 
 - `300rd_1368W_EccN_ocean_2240ppm.nc`;
 - `300rd_1368W_EccN_atmos_2240ppm.nc`;
@@ -434,7 +434,7 @@ Different cases:
 
 ## Nothing bad happened
 
-Sometimes, the model just crashes without known reason. In that case, just check that `restart/atmos` files are well named (see [Known Issues below](https://paleoclim-cnrs.github.io/documentation-model/FOAM/#restart-files)) and restart the experiment. 
+Sometimes, the model just crashes without known reason, probably due to issues with the cluster. In that case, just check that `restart/atmos` files are well named (see [Known Issues below](https://paleoclim-cnrs.github.io/documentation-model/FOAM/#restart-files)) and restart the experiment (see e.g. [this previous section](https://paleoclim-cnrs.github.io/documentation-model/FOAM/#running-the-model-with-monthly-output) for how to restart an experiment).
 
 ## Timestep issue
 
@@ -452,9 +452,9 @@ This workaround is useful in the presence of a sea-ice front located at the mid 
 
 Another usual issue, which will probably show up in your first fully coupled model simulations due to small mistakes in Slarti.
 
-An isolated ocean point in the land-sea mask, or a deep ocean point surrounded by shallower ocean grid points, or a very flat bathymetry at the tropics (with negative P-E balance) or at the high latitudes (with sea-ice formation and associated salt fluxes), will lead to the excessive accumulation of salt and make the model crash.
+An isolated ocean point in the land-sea mask, or a deep ocean point surrounded by shallower ocean grid points, or a very flat and relatively shallow bathymetry at the tropics (with negative P-E balance) or at the high latitudes (with sea-ice formation and associated salt fluxes), will lead to the excessive accumulation of salt and make the model crash.
 
-This issue can generally be spotted by plotting the maximum salinity over the whole water column, and corrected by going back to Slarti, correcting the boundary conditions locally, and running a new simulations using these corrected boundary conditions.
+This issue can generally be spotted by plotting the maximum salinity over the whole water column and determining where salinity exceeds reasonable values, and corrected by going back to Slarti, correcting the boundary conditions locally, and running a new simulations using these corrected boundary conditions.
 
 # Known issues
 
@@ -462,11 +462,11 @@ This issue can generally be spotted by plotting the maximum salinity over the wh
 
 With the CCUB, some `restart/atmos` files are not named properly, which makes the model crash upon restart.
 
-Check for any issue before restarting an experiment. Indeed, each atmospheric restart should consist in two files (here for year 2000) `restart.atmos.0720000.A` and `restart.atmos.0720000`. Typically, `restart.atmos.0720000` will be incorrectly named `r2001`. Just `mv r2001 restart.atmos.0720000`, or `ln -s r2001 restart.atmos.0720000`.
+Check for any issue before restarting an experiment. Indeed, each atmospheric restart should consist in two files (here for year 2000) `restart.atmos.0720000.A` and `restart.atmos.0720000`. Typically, `restart.atmos.0720000` will be incorrectly named `r2001`, or similar. Just `mv r2001 restart.atmos.0720000`, or `ln -s r2001 restart.atmos.0720000`.
 
 ## Too long a name
 
-Too long a path (e.g., `/work/crct/zz9999zz/foammmmmmmmm/phanero/300rd/300rd_T36/EcN_8X`) will make the model crash with no explicit error message.
+Too long a path (e.g., `/work/crct/zz9999zz/foammmmmmmmm/phanero/300rd/300rd_T36/EcN_8X`) will make the model crash with no explicit error message. It even happened that a given path name made the model crash... for unknown reasons except this given name?
 
 # Looking at the model output
 
