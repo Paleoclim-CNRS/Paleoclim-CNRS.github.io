@@ -5,7 +5,7 @@ toc: true
 toc_sticky: true
 ---
 
-A FOAM User-guide at U. Bourgogne.
+A FOAM user-guide at U. Bourgogne.
 
 This page is not intended to replace the official [FOAM user guide](https://wiki.mcs.anl.gov/FOAM/index.php/Main_Page), but rather to provide additional / alternative material.
 
@@ -19,7 +19,19 @@ This tutorial describes how to run the Fast Ocean Atmosphere Model ([Jacob, 1997
 
 Please note that the FOAM source code is not freely available. The code developer, [Robert Jacob](https://www.anl.gov/profile/robert-l-jacob), plans to upload it on GitHub soon. In the meantime, you can contact [me](https://alexpohl.github.io/) if you are interested in collaborating, obtaining the model code and accessing the CCUB cluster.
 
-The tutorial is designed as follows: baseline instructions are given for the fully coupled model (with deep ocean), and additional details are provided where applicable (in bold) for the slab mixed-layer ocean model.
+The tutorial is designed as follows: baseline instructions are given for the fully coupled model (with deep ocean), and additional details are provided where applicable (in bold font) for the slab mixed-layer ocean model.
+
+# Fully coupled vs. slab model
+
+As previously mentioned, the FOAM model can be run with a deep ocean or with a slab mixed-layer ocean.
+
+In the fully-coupled model with deep ocean, ocean dynamics is resolved. In the slab mixed-layer version, the oceanic component consists in a 50-m deep ocean layer; ocean currents are not represented and the ocean heat transport is represented using diffusion.
+
+The fully coupled model supposedly provides more realistic, and more mechanistic results. It requires a longer model integration time: 2000 to 3000 model years, or equivalently ca. 4 wall-clock days, to reach deep ocean thermal equilibrium.
+
+The slab model is much lighter; it requires 50 years to reach equilibrium, or 4 wall-clock hours.
+
+See Pohl et al. [Pohl, A., Donnadieu, Y., Le Hir, G., Buoncristiani, J.F. and Vennin, E. 2014. Effect of the Ordovician paleogeography on the (in)stability of the climate. Climate of the Past, 10, 2053–2066](https://cp.copernicus.org/articles/10/2053/2014/) for an analysis of the differences between the two model version.
 
 # Requirements
 
@@ -43,7 +55,7 @@ Currently Loaded Modulefiles:
  3) nco/4.7.7/intel/2018
 ```
 
-Remark: At some point, following cluster module updates, we will probably have to change some modules, which will require recompiling the code with these modules and loading the same version afterwards.
+Remark: At some point, following cluster module updates, we will probably have to change some modules, which will require recompiling the code with these modules and loading the same version afterwards. Ideally, we'll also have to check that results are identical.
 
 # Installing and compiling
 
@@ -205,7 +217,7 @@ Modules are loaded (the same modules as defined at start, used also to compile t
 
 ### Linking the executable
 
-While in the run directory, create a symbolic link (to avoid filling the disk) to the compiled executable: `ln -s /user1/crct/zz9999zz/foam1.5 .`
+While in the run directory, create a symbolic link (to avoid filling the disk) to the compiled executable: `ln -s /user1/crct/zz9999zz/foam1.5 .`.
 
 ### Creating history and restart directories
 
@@ -220,14 +232,14 @@ While in the run directory, create the history and restart directories, for each
 - `mkdir restart/ocean`
 - `mkdir restart/coupl`
 
-Model output will be written in `history` (`atmos` for the atmosphere etc.), while restart files will be written in `restart` (`atmos` for the atmosphere etc.).
+Model output will be written in `history` (`history/atmos` for the atmosphere etc.), while restart files will be written in `restart` (`restart/atmos` for the atmosphere etc.).
 
 ## Launching the simulation
 
 While in the run directory, submit the job (`qsub pbs.foam16p.script`). You can check the run status using `qstat`(and will be happy at that time to see a proper run name, defined above).
 To abort the run, `qdel job-ID`, with `job-ID`being the job number (e.g. 7013515) obtained with the command `qstat`.
 
-It will take approximatively 4 days to run for 2000 model years. Output is written in the `history`output directories (one file every 3 to 4 minutes). Useful information can be found during the run in output files `om3.out.4_8.0`and `pccm.out.0720000`.
+It will take approximatively 4 days to run for 2000 model years. Output is written in the `history` output directories (one file every 3 to 4 minutes). Useful information can be found during the run in output files `om3.out.4_8.0`and `pccm.out.0720000`.
 
 Should the simulation crash, see [section below](https://paleoclim-cnrs.github.io/documentation-model/FOAM/#debugging).
 
@@ -237,7 +249,7 @@ We previously ran an experiment based on a provided directory of boundary and in
 
 ## Creating boundary conditions
 
-Boundary conditions are model parameters that do not evolve during the simulation. They notably define the continental configuration, topography and bathymetry, pCO2, solar luminosity, orbital configuration etc.
+Boundary conditions are model parameters that do not evolve during the simulation. They notably define the continental configuration, topography and bathymetry, pCO2, solar luminosity, orbital configuration etc. While some of these boundary conditions (pCO2, solar luminosity, orbital parameters) are imposed in file `atmos_params` ([here](https://paleoclim-cnrs.github.io/documentation-model/FOAM/#file-atmos_params)), others (topography/bathymetry, land-sea mask, vegetation) are imposed through a series of specific files included in the directory of boundary conditions (that will be created below).
 
 ### Slarti boundary conditions
 
@@ -245,9 +257,9 @@ Boundary conditions are created using a graphical interface named Slarti. The so
 
 Slarti takes in input a DEM in the form of a NetCDF raster file with 128 x 128 grid points. One example file is provided with this turorial: `Topobathy_300eb_postslarti_cor.nc`.
 
-Remark: you can easily create a similar input file based on the paleoDEMS of [Scotese and Wright (2018)](https://www.earthbyte.org/paleodem-resource-scotese-and-wright-2018/), which you may want to regrid on a 128 x 128 grid using the `cdo remapbil` tool (module available on the CCUB as well).
+Remark: you can easily create a similar input file based e.g. on the paleoDEMS of [Scotese and Wright (2018)](https://www.earthbyte.org/paleodem-resource-scotese-and-wright-2018/), which you may want to regrid on a 128 x 128 grid using the `cdo remapbil` tool (module available on the CCUB as well).
      
-1. `File/New`, 128x128, R15, Bathymetry/Topography, `Topobathy_300eb_postslarti_cor.nc`, NetCDF, no Optional Input, click OK (see screenshot below).
+1. `File/New`, 128x128, R15, Bathymetry/Topography, Browse `Topobathy_300eb_postslarti_cor.nc`, NetCDF, no Optional Input, click OK (see screenshot below).
 
 <img src="/assets/images/documentation/model/FOAM_screenshot_Slarti.png"
      alt="Slarti Screenshot"
@@ -266,19 +278,21 @@ Remark: you can easily create a similar input file based on the paleoDEMS of [Sc
 
 7. `View-Edit/Bathymetry Level View`: Level by level, make sure to avoid isolated ocean grid points where salt could accumulate, which would make the model drift and ultimately crash (see [section below](https://paleoclim-cnrs.github.io/documentation-model/FOAM/#salt-anomaly)).
 
-8. `View-Edit/Topography`: Topography can be altered here, but keep in mind that the atmosphere will see a lower-resolution version (only shown when saving). What you see in the topography seen by the coupler.
+8. `View-Edit/Topography`: Topography can be altered here, but keep in mind that the atmosphere will see a lower-resolution version (only shown when saving). What you see here is the topography seen by the coupler.
 
-9. `View-Edit/River flow`: define the water routing manually, while making sure to avoid creating lakes. Please remember to `Compare and match files` when switching from one window to another one. For instance, changing the topography will automatically alter the river flow. Be aware of this. At any time, you can manually `List river flow lakes`. No lakes should be found in the final boundary conditions. If lakes are found, you have to get rid of them.
+9. `View-Edit/River flow`: define the water routing manually (by imposing flow directions: North, North-East, East, SE, S, etc.), while making sure to avoid creating lakes. Please remember to `Compare and match files` when switching from one window to another one. For instance, changing the topography will automatically alter the river flow. Be aware of this. At any time, you can manually `List river flow lakes`. No lakes should be found in the final boundary conditions. If lakes are found, you have to get rid of them.
 
-10. At any time, you can save your boundary conditions in their current state and resume editing later. Just open Slarti and `File/Open` the `.case` file included in your directory of saved boundary conditions.
+10. At any time, you can save your boundary conditions in their current state (see previous step 4) and resume editing later. Just open Slarti and `File/Open` the `.case` file included in your directory of saved boundary conditions.
 
 __The slab model has no routing and lakes can exist. However, it means that you will not be able to run the fully coupled model using the same directory of boundary conditions. I suggest always preparing clean boundary conditions for the coupled model, even if you wanna run the slab version.__
 
 Importantly, you can use the (uncompressed) directory of boundary conditions provided with this tutorial (`BC_300rd_T36`) to look at the expected Slarti output. To that purpose, open Slarti and `File/Open`, find uncompressed directory `BC_300rd_T36` and open file `300rd.case`. 
 
-#### Building the resulting topography/bathymetry NetCDF file. 
+#### [optional] Building the resulting topography/bathymetry NetCDF file. 
 
 With [Ferret](https://ferret.pmel.noaa.gov/Ferret/), run script `UTIL/TopoBathyBuild_Cor.jnl`, using your Slarti directory file in input, to generate the 2D topography/bathymetry NetCDF file with the paleogeography created in Slarti.
+
+This is an optional step. This file is not needed to run the model.
 
 ### Gathering required files
 
@@ -294,7 +308,7 @@ Let's gather all required files in a directory (just as you previously used dire
 
 Now, your boundary conditions are ready. In order to test them in this tutorial, we can simply adapt the paths used in the `EcN_8X` experiment that we previously set up. To that purpose, just edit file `run_params`: `TIME_INV` should new read `/work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T37`.
 
-Make sure (with `qstat`) that the simulation is not currently running (or stop it using `qdel`) and launch it with `qsub pbs.foam16p.script`.
+Make sure (with `qstat`) that the simulation is not currently running (or stop it using `qdel`; otherwise, both simulations will run simultaneously and overwrite output files) and launch it with `qsub pbs.foam16p.script`.
  
 ## Creating initial conditions
 
