@@ -66,13 +66,13 @@ __For FOAM slab: `Make foamslab` and then `mv foam1.5.slab /user1/crct/zz9999zz/
 
 Now, the model is compiled and ready to run. Let's see how to launch an experiment from a directory with all boundary and initial conditions ready. We'll see how to create these boundary and initial conditions later.
 
-In the following, you'll need an ensemble of files, which are downloadable [here](/assets/data/FOAM_files).
+In the following, you'll need an ensemble of files, which are downloadable [here](/assets/data/FOAM_files.tar.gz).
 
 # Running an experiment from existing boundary and initial conditions
 
 ## Directory with boundary conditions and initial conditions
 
-In the archive that you previously downloaded ([here](/assets/data/FOAM_files)), you will find a directory `BC_300rd_T36.tar.gz` containing all boundary and initial conditions required to run an random experiment at 300 Ma (taken from [this dataset](https://zenodo.org/record/5780097#.Ymjy9fNByCd). Place the (uncompressed) directory in your `WORKDIR` (the place where you will want to run your simulations; this is a Scratchdir, although files are not automatically deleted after a given duration, as is done on other clusters) at the following location (while creating required directories): `/work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T36` (or another location of your choice, I propose typical paths for illustration).
+In the archive that you previously downloaded ([here](/assets/data/FOAM_files.tar.gz)), you will find a directory `BC_300rd_T36.tar.gz` containing all boundary and initial conditions required to run an random experiment at 300 Ma (taken from [this dataset](https://zenodo.org/record/5780097#.Ymjy9fNByCd). Place the (uncompressed) directory in your `WORKDIR` (the place where you will want to run your simulations; this is a Scratchdir, although files are not automatically deleted after a given duration, as is done on other clusters) at the following location (while creating required directories): `/work/crct/zz9999zz/foam/phanero/300rd/300rd_T36/BC_300rd_T36` (or another location of your choice, I propose typical paths for illustration).
 
 ## Run directory
 
