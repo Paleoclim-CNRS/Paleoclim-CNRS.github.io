@@ -5,7 +5,7 @@ toc: true
 toc_sticky: true
 ---
 
-A FOAM user-guide at U. Bourgogne.
+A user-guide for the Fast Ocean-Atmosphere Model (FOAM) at U. Bourgogne. An ocean-atmosphere general circulation model well designed for paleoclimate investigations.
 
 This page is not intended to replace the official [FOAM user guide](https://wiki.mcs.anl.gov/FOAM/index.php/Main_Page), but rather to provide additional / alternative material.
 
