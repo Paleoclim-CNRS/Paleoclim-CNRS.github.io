@@ -31,7 +31,7 @@ The fully coupled model supposedly provides more realistic, and more mechanistic
 
 The slab model is much lighter; it requires 50 years to reach equilibrium, or 4 wall-clock hours.
 
-See Pohl et al. [Pohl, A., Donnadieu, Y., Le Hir, G., Buoncristiani, J.F. and Vennin, E. 2014. Effect of the Ordovician paleogeography on the (in)stability of the climate. Climate of the Past, 10, 2053–2066](https://cp.copernicus.org/articles/10/2053/2014/) for an analysis of the differences between the two model version.
+See Pohl et al. ([Pohl, A., Donnadieu, Y., Le Hir, G., Buoncristiani, J.F. and Vennin, E. 2014. Effect of the Ordovician paleogeography on the (in)stability of the climate. Climate of the Past, 10, 2053–2066](https://cp.copernicus.org/articles/10/2053/2014/)) for an analysis of the differences between the two model version.
 
 # Requirements
 
