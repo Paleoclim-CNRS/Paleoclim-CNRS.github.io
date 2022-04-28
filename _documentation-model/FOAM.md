@@ -13,6 +13,8 @@ Information on the CCUB cluster can be found [here](https://ccub.u-bourgogne.fr/
 
 Although the tutorial is built with many sections for readibility, I suggest progressing linearly since knowhow acquired in section n will sometimes be useful for section n+1.
 
+__Tutorial status__: this page is finished, but the tutorial has never been tested yet. Happy to have feedbacks, and to revise and add content.
+
 # Introduction
 
 This tutorial describes how to run the Fast Ocean Atmosphere Model ([Jacob, 1997]('https://ftp.mcs.anl.gov/pub/People/jacob/RLJdissertation.ps.gz)) on the linux cluster of Univ. Bourgogne (CCUB, Dijon). It should be easy to adapt to other clusters.
