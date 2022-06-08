@@ -220,3 +220,19 @@ ffluteau:
       icon: "fas fa-fw fa-PUBLONS"
       url: "https://publons.com/researcher/2814819/frederic-fluteau/"
 
+SebastienN:
+  name        : "Sébastien Nguyen"
+  bio         : >
+    Engineer at LSCE in the CLIM and Calculs teams, maintaining the IPSLCM5A2 model/configurations.
+    Also involved in the introduction of water isotopes in IPSLCM.
+  avatar      : ""
+  location    : "Saclay, France"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:sebastien.nguyen@lsce.ipsl.fr"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/tlnguyens"
+      
+      
