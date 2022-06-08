@@ -220,7 +220,7 @@ ffluteau:
       icon: "fas fa-fw fa-PUBLONS"
       url: "https://publons.com/researcher/2814819/frederic-fluteau/"
 
-SebastienN:
+sebastienn:
   name        : "Sébastien Nguyen"
   bio         : >
     Engineer at LSCE in the CLIM and Calculs teams, maintaining the IPSLCM5A2 model/configurations.
