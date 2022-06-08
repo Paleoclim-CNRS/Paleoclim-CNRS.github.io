@@ -1,7 +1,7 @@
 ---
 author: sebastienn
 position: Research Engineer CEA
-type: Perm
+type: perm
 title: " "
 header:
     overlay_image: "/assets/images/snguyen.jpg"
