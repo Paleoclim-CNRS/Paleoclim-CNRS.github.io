@@ -225,7 +225,7 @@ SebastienN:
   bio         : >
     Engineer at LSCE in the CLIM and Calculs teams, maintaining the IPSLCM5A2 model/configurations.
     Also involved in the introduction of water isotopes in IPSLCM.
-  avatar      : ""
+  avatar      : "/assets/images/snguyen.jpg"
   location    : "Saclay, France"
   links:
     - label: "Email"
