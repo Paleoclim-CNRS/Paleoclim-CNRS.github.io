@@ -1,5 +1,5 @@
 ---
-author: SebastienN
+author: sebastienn
 position: Research Engineer CEA
 type: Perm
 title: " "
