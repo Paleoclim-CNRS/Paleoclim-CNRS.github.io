@@ -3,7 +3,7 @@ author: apohl
 title: "Ecole thématique Paleos"
 days: 27 June – 1st July 2022
 location: Agencourt
-type: upcoming
+type: old
 ---
 
 Programme et détails disponibles ici <a href="https://crpg.blog.univ-lorraine.fr/ecole-thematique-paleos/">ici<i class="fas fa-external-link-alt" style="font-size: 0.75rem;"></i></a>
