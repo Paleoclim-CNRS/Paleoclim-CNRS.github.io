@@ -1,6 +1,6 @@
 ---
 title: Environmental stability on Earth allowed marine biodiversity to flourish
-img: assets/images/news/2022-07-13_Cermenoetal_2.pdf
+img: assets/images/news/2022-07-13_Cermenoetal_2.jpg
 ---
 
 Modern ocean biodiversity, which is at its highest level ever, was achieved through long-term stability of the location of so-called biodiversity hotspots, regions of especially high numbers of species, scientists have found.
