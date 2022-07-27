@@ -1,8 +1,8 @@
 ---
-acronyme: ECO-BOOST
+acronyme: "ECO-BOOST"
 funder: ANR
-year_start: 2019
-lab: "Biogéosciences"
+year_start: 2022
+lab: Biogeosciences
 title: "Evolution of the Cambrian-Ordovician Biodiversification Onset Over Space and Time"
 type: current
 layout: project
