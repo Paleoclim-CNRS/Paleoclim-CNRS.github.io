@@ -8,11 +8,8 @@ type: current
 layout: project
 description: "ANR project ECO-BOOST aims at revisiting the dynamics of Early Paleozoic biodiversifications using data and climate-biodiversity models. PI: B. Lefebvre. Partners: T. Servais, G. Beaugrand, A. Pohl."
 collaborators:
-    - Bertrand Lefebvre
-      url: "http://lgltpe.ens-lyon.fr/annuaire/lefebvre-bertrand"
-    - Thomas Servais
-      url: "https://eep.univ-lille.fr/user/thomas.servais/"
-    - Gregory Beaugrand
-      url: "https://pro.univ-lille.fr/gregory-beaugrand/"
+    - <a href='http://lgltpe.ens-lyon.fr/annuaire/lefebvre-bertrand'>Bertrand Lefebvre</a>
+    - <a href='https://eep.univ-lille.fr/user/thomas.servais/'>Thomas Servais</a>
+    - <a href='https://pro.univ-lille.fr/gregory-beaugrand/'>Gregory Beaugrand</a>
     - name: apohl
 ---
