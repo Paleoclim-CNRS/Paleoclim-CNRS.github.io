@@ -1,5 +1,5 @@
 ---
-acronyme: "ECO-BOOST"
+acronyme: ECO BOOST [ANR]
 funder: ANR
 year_start: 2022
 lab: Biogeosciences
