@@ -1,7 +1,8 @@
 ---
-author: Jean-Baptiste Ladant
+author: jbladant
 position: CNRS 
 type: perm
+title: " "
 ---
 
 <style>
