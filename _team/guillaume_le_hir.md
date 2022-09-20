@@ -11,7 +11,7 @@ title: " "
     }
 </style>
 
-Alexandre is Assistant Professor at the Paleomag lab, Paris, France.
+Guillaume is Assistant Professor at the Paleomag lab, Paris, France.
 
 <iframe src="https://guillaumelehir.github.io/" style="width:100%; height:70vh;"></iframe>
 
