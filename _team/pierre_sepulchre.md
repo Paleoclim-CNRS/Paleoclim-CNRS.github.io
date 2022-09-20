@@ -11,7 +11,7 @@ title: " "
     }
 </style>
 
-Alexandre is CNRS researcher at the Biogéosciences lab, Dijon, France.
+Pierre is CNRS researcher at the Laboratoire des Sciences du Climat et de l'Environnement, Saclay, France.
 
-<iframe src="https://alexpohl.github.io/" style="width:100%; height:70vh;"></iframe>
+<iframe src="https://pierre-sepulchre.github.io/" style="width:100%; height:70vh;"></iframe>
 
