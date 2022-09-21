@@ -11,6 +11,6 @@ title: " "
     }
 </style>
 
-JB is CNRS researcher at LSCE, Gif-sur-Yvette, France.
+JB is CNRS researcher at LSCE, Gif sur Yvette, France.
 
 <iframe src="https://jbladant.github.io/" style="width:100%; height:70vh;"></iframe>
