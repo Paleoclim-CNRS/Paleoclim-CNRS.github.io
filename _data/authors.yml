@@ -234,3 +234,14 @@ sebastienn:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/tlnguyens"
+
+jbladant:
+  name        : "JB Ladant"
+  bio         : "CNRS Researcher at LSCE"
+  avatar      : "/assets/images/jbladant.jpg"
+  location    : "Paris, France"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:jbladant@gmail.com"
+
