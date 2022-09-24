@@ -193,7 +193,7 @@ psepulchre:
       icon: "fab fa-fw fa-github"
       url: "https://github.com/psepulchre"
     - label: "HAL"
-      icon: "fab fa-fw fa-hal"
+      icon: "fab fa-fw fa-book"
       url: "https://cv.archives-ouvertes.fr/pierre-sepulchre"
     - label: "Google Scholar"
       icon: "fas fa-fw fa-graduation-cap"
