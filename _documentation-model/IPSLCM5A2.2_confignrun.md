@@ -51,7 +51,7 @@ When prompted for a password for Orchidee use:
 ```bash
 # login
 sechiba
-#password
+# password
 ipsl2000
 ```
 
