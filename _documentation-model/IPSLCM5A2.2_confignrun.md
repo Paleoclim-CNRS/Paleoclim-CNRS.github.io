@@ -56,5 +56,10 @@ ipsl2000
 ```
 
 Once this is done you can immediately compile the model for a paleo experiment.
-Starting from v(.2) There is no need to modify the sources for no ice sheet (and no sea ice) configurations.
+Starting from v(.2) There is no need to modify the sources for configurations without ice sheets.
 
+Launch the Makefile script for PALEOIPSLCM5A2-VLR configuration:
+
+```bash
+gmake PALEOIPSLCM5A2-VLR
+```
