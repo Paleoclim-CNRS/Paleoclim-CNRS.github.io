@@ -15,7 +15,7 @@ collaborators:
 fellows: 
     - Nicolas Seon, PhD, October2019-XX (Sorbonne Universités, MNHN)
     - Thomas Letulle, PhD, October2019-XX (UCBL - LGLTPE)
-    - To be recruited, Postdoc, 24 months (AMU, CEREGE)
+    - Nina Papadomanolaki, Postdoc, July2021-June2023 (AMU, CEREGE)
 ---
 
 The main objective of the OXYMORE project is to provide the first reliable reconstructions of Mesozoic
