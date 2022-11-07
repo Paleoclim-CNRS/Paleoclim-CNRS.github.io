@@ -5,6 +5,8 @@ excerpt: Installing and configuring Paleo Pisces offline
 toc: true
 ---
 
+[![](https://img.shields.io/static/v1?label=Code&message=here&color=lightgrey&style=flat-square&logo=github)](https://github.com/Paleoclim-CNRS/PaleoPisces)
+
 Reference paper for the PISCES model is [Aumont et al. 2015](https://gmd.copernicus.org/articles/13/3011/2020/gmd-13-3011-2020.html). You will find additional information about parameterization and appropiate references within this paper as well.
 
 This program aims to automate all the steps necessary to install and configure Paleo Pisces in order to facilitate the workflow.
