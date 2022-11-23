@@ -58,7 +58,10 @@ ipsl2000
 Once this is done you can immediately compile the model for a paleo experiment.
 Starting from v(.2) There is no need to modify the sources for configurations without ice sheets.
 
-Launch the Makefile script for PALEOIPSLCM5A2-VLR configuration:
+Go to the configuration directory :
+MYPROJECTNAME/modipsl/config/IPSLCM5A2
+
+From there, launch the Makefile script for PALEOIPSLCM5A2-VLR configuration:
 
 ```bash
 gmake PALEOIPSLCM5A2-VLR
