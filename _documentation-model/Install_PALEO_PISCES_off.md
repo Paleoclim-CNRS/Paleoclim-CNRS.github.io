@@ -77,7 +77,7 @@ You will be required to enter the folder name where Paleo Pisces has been instal
 If you wnat to run a simulation, you need to change your directory to:
 
 ```
-cd ccc/work/cont003/gen2212/[IRENE_User_Name]/[<b>path_to_PALEOPISCES</b>]/modipsl/config/NEMO_v6/[JOB_NAME]
+cd ccc/work/cont003/gen2212/[IRENE_User_Name]/[path_to_PALEOPISCES]/modipsl/config/NEMO_v6/[JOB_NAME]
 ```
 
 And run the job:
