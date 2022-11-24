@@ -1,9 +1,9 @@
 ---
-title: Climate Sim Maintenance
+title: Netcdf Editor Application Maintenance
 author: Wesley
 toc: true
 toc_sticky: true
-excerpt: General information for working ensuring the climate sim platform is deployed correctly
+excerpt: General information for working and ensuring the application is deployed correctly
 ---
 
 # Introduction
