@@ -66,3 +66,5 @@ From there, launch the Makefile script for PALEOIPSLCM5A2-VLR configuration:
 ```bash
 gmake PALEOIPSLCM5A2-VLR
 ```
+This version of the code allows you to work with ORCA2 grids and paleORCA grids.
+
