@@ -22,7 +22,9 @@ The folder structure is as following:
 
 ## Before starting
 
-Before using the python scripts, load the python module v3.7.5, on IRENE:
+Before using the python scripts, once you are connected to IRENE make sure you use the right environment (Documentation [here](https://forge.ipsl.jussieu.fr/igcmg_doc/wiki/Doc/ComputingCenters/TGCC/Irene#Generalenvironment)).
+
+Then load the python module v3.7.5:
 ```
 ml load python3/3.7.5
 ```
