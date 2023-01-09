@@ -7,8 +7,7 @@ toc: true
 
 [![](https://img.shields.io/static/v1?label=Code&message=here&color=lightgrey&style=flat-square&logo=github)](https://github.com/Paleoclim-CNRS/Diag_CM5A2/tree/IRENE_GEN2212)
 
-The folder containing the script and all the packages required is located on IRENE here: `/ccc/work/cont003/gen2212/gen2212/Diag_CM5A2/`.
-
+## Introduction 
 This script plots several diagnostics from CM5A2 outputs.
 Depending on the options enabled:
 
@@ -20,11 +19,36 @@ Depending on the options enabled:
 - In the case where 2 experiments are chosen, there is the ability to 
   compute the difference between them
 
+## Preliminary steps
 
+The folder containing the script and all the packages required are located on IRENE here: `/ccc/work/cont003/gen2212/gen2212/Diag_CM5A2/`.
+
+Connect to IRENE and move to the folder location containing the code.
+```
+ssh [username]@irene-fr.ccc.cea.fr
+
+cd /ccc/work/cont003/gen2212/gen2212/Diag_CM5A2/
+```
+
+
+At this step there are 2 possibilities:
+  - either go straight away to the next part [Load python environment](#load-python-environment) and follow the rest of the documentation
+  - or run `ccc_mprun -s -m work,store -Q test -p rome -T 600` before, to run the code on an **interactive computing node** (might be faster ?)
+
+## Load python environment
+
+- Launch the script `load_env.sh`
+```
+cd /ccc/work/cont003/gen2212/gen2212/Diag_CM5A2/
+. load_env.sh
+```
 
 ## Launch the script
 
-- Launch the script by running the `RUN_DIAG.sh` file (command `sh RUN_DIAG.sh`)
+- Run the python script `Diag_CM5A2.py`
+```
+python3 Diag_CM5A2.py
+```
 
 - Enter your `[ProfileName]` as requested:
     - if `[ProfileName]` is not known: a file `[ProfileName]_profile.py` will be created here `userData/[ProfileName]/` and the program will stop. 
