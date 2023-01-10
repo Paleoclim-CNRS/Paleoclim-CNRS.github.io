@@ -39,7 +39,6 @@ At this step there are 2 possibilities:
 
 - Launch the script `load_env.sh`
 ```
-cd /ccc/work/cont003/gen2212/gen2212/Diag_CM5A2/
 . load_env.sh
 ```
 
