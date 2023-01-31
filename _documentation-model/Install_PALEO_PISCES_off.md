@@ -11,27 +11,24 @@ Reference paper for the PISCES model is [Aumont et al. 2015](https://gmd.coperni
 
 This program aims to automate all the steps necessary to install and configure Paleo Pisces in order to facilitate the workflow.
 
-It can be found on IRENE here:
-```
-/ccc/work/cont003/gen2212/gen2212/PaleoPisces
-```
-
 The folder structure is as following: 
 
 ![Folder Structure](/assets/images/Folder_paleo_pisces.png)
 
-## Before starting
+## Preliminary steps
 
-Before using the python scripts, once you are connected to IRENE make sure you use the right environment (Documentation [here](https://forge.ipsl.jussieu.fr/igcmg_doc/wiki/Doc/ComputingCenters/TGCC/Irene#Generalenvironment)).
+The folder containing the script and all the packages required are located on IRENE here: `/ccc/work/cont003/gen2212/gen2212/PaleoPisces`.
 
-Then load the python module v3.7.5:
+Connect to IRENE and move to the folder location containing the code.
 ```
-ml load python3/3.7.5
-```
+ssh [username]@irene-fr.ccc.cea.fr
 
-Move in the folder containing the program:
-```
 cd /ccc/work/cont003/gen2212/gen2212/PaleoPisces
+```
+
+Load environment
+```
+. load_env.sh
 ```
 
 ## Install Paleo Pisces
