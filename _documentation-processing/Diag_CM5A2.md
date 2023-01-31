@@ -30,14 +30,9 @@ ssh [username]@irene-fr.ccc.cea.fr
 cd /ccc/work/cont003/gen2212/gen2212/Diag_CM5A2/
 ```
 
+At this step you can either choose to run `ccc_mprun -s -m work,store -Q test -p rome -T 600` or not before following the rest of the documentation. This will run the code on an **interactive computing node** (might be faster ?)
 
-At this step there are 2 possibilities:
-  - either go straight away to the next part [Load python environment](#load-python-environment) and follow the rest of the documentation
-  - or run `ccc_mprun -s -m work,store -Q test -p rome -T 600` before, to run the code on an **interactive computing node** (might be faster ?)
-
-## Load python environment
-
-- Launch the script `load_env.sh`
+Load environment
 ```
 . load_env.sh
 ```
@@ -45,9 +40,9 @@ At this step there are 2 possibilities:
 ## Launch the script
 
 - Run the python script `Diag_CM5A2.py`
-```
-python3 Diag_CM5A2.py
-```
+  ```
+  python3 Diag_CM5A2.py
+  ```
 
 - Enter your `[ProfileName]` as requested:
     - if `[ProfileName]` is not known: a file `[ProfileName]_profile.py` will be created here `userData/[ProfileName]/` and the program will stop. 
