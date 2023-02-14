@@ -13,7 +13,9 @@ This program aims to automate all the steps necessary to install and configure P
 
 The folder structure is as following: 
 
-![Folder Structure](/assets/images/Folder_paleo_pisces.png)
+<p align="center">
+    <img src="/assets/images/folder_paleo_pisces.png"  width="800">
+<p>
 
 ## Preliminary steps
 
@@ -35,45 +37,47 @@ Load environment
 
 Install the model:
 ```
-python3 install_paleo_pisces.py
+python3 install_paleopisces.py
 ```
 You will be required to enter the folder name where you want to install Paleo Pisces (this folder shouldn't already exist).
 
+When launching for the first time this script, a `param.py` file will be created in `/ccc/work/cont003/gen2212/gen2212/PaleoPisces/user_input/[IRENE_USERNAME]`
 
-This script will create 2 python files `sim_path.py` and `config_card.py` and put them in a folder located in `/ccc/work/cont003/gen2212/gen2212/PaleoPisces/user_input/[IRENE_USERNAME]`.
+<p align="center">
+    <img src="/assets/images/param_paleo_pisces.png"  width="400">
+<p>
 
+<div class="alert alert-info">
+<em>Note: This <code>param.py</code> file will request for element (folder/file/job name) to install and set up Paleo Pisces.
+
+As long as one of these element entered in the <code>param.py</code> file doesn't match the conditions (either folder doesn't exist whereas it should for example), python script will request user to enter another value through a prompt to fix the issue.
+
+If the new value fit the conditions it will be automatically updated in the <code>param.py</code> file at the concerned variable.</em>
+</div>
 
 ## Configure Paleo Pisces
 
-Before running the next script you will have to edit the `sim_path.py` file which will contain path to the coupled simulation outputs.
+Before running the configure script you will have to edit the variables in `Folder names` and `Boundary condition files` section in `param.py` file.
 
-![Sim path](/assets/images/sim_path.png)
+Those variables will contain path to the coupled simulation outputs.
 
 Then the next python script can be run:
 ```
-python3 configure_paleo_pisces.py
+python3 config_paleopisces.py
 ```
-You will be required to enter the folder name where Paleo Pisces has been installed and the folder name where you want to set up the boundary conditions (this folder shouldn't already exist).
-
 
 ## Initialize Paleo Pisces
 
-Before running the last script, you will need to edit the `config_card.py` python file which will contain settings for the `config.card` file:
-```
-vim /ccc/work/cont003/gen2212/gen2212/PaleoPisces/user_input/[YourUsername]/config_card.py
-```
-![Config card](/assets/images/config_card.png)
+Before running the initialize script you will have to edit the variables in `Parameters for config.card` section in `param.py` file.
 
 Finally you can run the last python script:
 ```
-python3 initialize_paleo_pisces.py
+python3 init_paleopisces.py
 ```
-You will be required to enter the folder name where Paleo Pisces has been installed and the folder name where the boundary conditions have been set up. Then you will have to choose the job specifications (project ID, type of node, number of cores and wall time).
-
 
 ## Run a simulation
 
-If you wnat to run a simulation, you need to change your directory to:
+If you want to run a simulation, you need to change your directory:
 
 ```
 cd ccc/work/cont003/gen2212/[IRENE_User_Name]/[path_to_PALEOPISCES]/modipsl/config/NEMO_v6/[JOB_NAME]
