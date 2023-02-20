@@ -15,7 +15,7 @@ The folder structure is as following:
 
 <p align="center">
     <img src="/assets/images/Folder_paleo_pisces.png"  width="800">
-<p>
+</p>
 
 ## Preliminary steps
 
@@ -45,12 +45,12 @@ When launching for the first time this script, a `param.py` file will be created
 
 <p align="center">
     <img src="/assets/images/param_paleo_pisces.png"  width="400">
-<p>
+</p>
 
 <div class="alert alert-info">
 <em>Note: This <code>param.py</code> file will request for element (folder/file/job name) to install and set up Paleo Pisces.
 
-As long as one of these element entered in the <code>param.py</code> file doesn't match the conditions (either folder doesn't exist whereas it should for example), python script will request user to enter another value through a prompt to fix the issue.
+As long as one of these element entered in the <code>param.py</code> file doesn't match the conditions (e.g. folder doesn't exist whereas it should), python script will request user to enter another value through a prompt to fix the issue.
 
 If the new value fit the conditions it will be automatically updated in the <code>param.py</code> file at the concerned variable.</em>
 </div>
@@ -59,7 +59,7 @@ If the new value fit the conditions it will be automatically updated in the <cod
 
 Before running the configure script you will have to edit the variables in `Folder names` and `Boundary condition files` section in `param.py` file.
 
-Those variables will contain path to the coupled simulation outputs.
+Those variables will contain paths and filenames of the coupled simulation outputs.
 
 Then the next python script can be run:
 ```
@@ -77,7 +77,7 @@ python3 init_paleopisces.py
 
 ## Run a simulation
 
-If you want to run a simulation, you need to change your directory:
+If you want to run a simulation, you need to move in simulation directory:
 
 ```
 cd ccc/work/cont003/gen2212/[IRENE_User_Name]/[path_to_PALEOPISCES]/modipsl/config/NEMO_v6/[JOB_NAME]
