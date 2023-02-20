@@ -14,7 +14,7 @@ This program aims to automate all the steps necessary to install and configure P
 The folder structure is as following: 
 
 <p align="center">
-    <img src="/assets/images/folder_paleo_pisces.png"  width="800">
+    <img src="/assets/images/Folder_paleo_pisces.png"  width="800">
 <p>
 
 ## Preliminary steps
