@@ -4,6 +4,12 @@ title: Install Python locally from scratch
 excerpt: All the steps to install and configure a python environment on your computer
 toc: true
 ---
+<style>
+    div {border-radius: 10px; margin: 10px 0px}
+    pre {background-color:#fafafa; padding:15px 0px; padding-left:15px;}
+    code {background-color:#fafafa; color:#002d46; font-size:small; padding: 2px 5px; border-radius: 4px;}
+    img {border-radius: 10px;}
+</style>
 
 There are several ways to install python, but in this documentation we will use the **Anaconda Distribution** platform because it contains various convenient tools to install and configure python quickly.
 
@@ -93,11 +99,11 @@ conda install spyder-kernels=2.3
 ``` 
 
 <div class="alert alert-info">
-<em>Note: you can also install packages through the <b>Anaconda-Navigator</b> graphical interface (Check section <a href="#6---install-python-packages">Install python packages</a>).</em>
+<em><b>Note</b>: you can also install packages through the <b>Anaconda-Navigator</b> graphical interface (Check section <a href="#6---install-python-packages">Install python packages</a>).</em>
 </div>
 
 <div class="alert alert-warning">
-<em>Warning: currently the version required for <code>spyder-kernels</code> should be <b>>= 2.3.0</b> and <b>< 2.4.0</b>. Consider this might change later. It will get notified in the <b>Spyder</b> console. From then you will have to remove the <code>spyder-kernels</code> package currently installed on the <b>myenv</b> environment and install the version of the required one (Check <a href="#useful-commands">Useful commands</a>).</em>
+<em><b>Warning</b>: currently the version required for <code>spyder-kernels</code> should be <code>>= 2.3.0</code> and <code>< 2.4.0</code>. Consider this might change later. It will get notified in the <b>Spyder</b> console. From then you will have to remove the <code>spyder-kernels</code> package currently installed on the <b>myenv</b> environment and install the version of the required one (Check <a href="#useful-commands">Useful commands</a>).</em>
 </div>
 
 ## 5 - Configure Spyder
@@ -159,7 +165,7 @@ They can be installed either through the graphical interface or the terminal.
   conda install -c anaconda numpy
   ```
   <div class="alert alert-info">
-  <em>Note: we could have also used the <b>pip</b> command to install python packages but remember it is generally not advised to mix <code>pip install</code> and <code>conda install</code> in a conda environment. You can find more informations to understand pip and conda <a href="https://www.anaconda.com/blog/understanding-conda-and-pip">here</a>.</em>
+  <em><b>Note</b>: we could have also used the <b>pip</b> command to install python packages but remember it is generally not advised to mix <code>pip install</code> and <code>conda install</code> in a conda environment. You can find more informations to understand pip and conda <a href="https://www.anaconda.com/blog/understanding-conda-and-pip">here</a>.</em>
   </div>
 
 ## Useful commands
@@ -206,5 +212,5 @@ conda list -n myenv py_pack
 conda remove py_pack
 ```
 <div class="alert alert-info">
-  <em>Note: all the actions peformed by the commands above can be achieved through the graphical interface as well.</em>
+  <em><b>Note</b>: all the actions peformed by the commands above can be achieved through the graphical interface as well.</em>
 </div>
