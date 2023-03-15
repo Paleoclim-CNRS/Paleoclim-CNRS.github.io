@@ -7,9 +7,9 @@ excerpt: General information for working and ensuring the application is deploye
 ---
 
 <style>
-    div {border-radius: 10px; margin: 10px 0px}
+    .initial-content div {border-radius: 10px; margin-bottom: 15px;}
     pre {background-color:#fafafa; padding:15px 0px; padding-left:15px;}
-    code {background-color:#fafafa; color:#8c1a48; font-size:small; padding: 2px 5px; border-radius: 4px;}
+    code {background-color:#fafafa; color:#8c1a48; font-size:medium; padding: 2px 5px; border-radius: 4px;}
     img {border-radius: 10px;}
 </style>
 
@@ -90,10 +90,11 @@ After a stack redeployment you can get a **Failure volume** error.
 </div>
 
 <div class="alert alert-success">
+    <b>Solving</b>:<br>
     Navigate to <b>Volumes</b>:<br>
-    <img src="/assets/images/climsim_maintenance/portainer-volume.png" style="width: 400px;  margin: 10px 0px; align:center;"><br>
+    <p align="center"><img src="/assets/images/climsim_maintenance/portainer-volume.png" style="width: 500px;  margin-top: 10px;"></p><br>
     Search through for <code>climsim_instance_storage</code> if it exists check it and delete it:<br>
-    <img src="/assets/images/climsim_maintenance/portainer-instance-storage.png" style=" margin: 10px 0px;">    
+    <p align="center"><img src="/assets/images/climsim_maintenance/portainer-instance-storage.png" style="width: 600px; margin-top: 10px;"></p>    
 </div>
 
 ## Nginx issue
@@ -102,7 +103,8 @@ After a stack redeployment you can get a **nginx error** when trying to reach th
 It has been observed that containers can get into inconsistent states and need restarting. This has been observed for the `nginx` container (noteablly when containers are redeployed in different passes of watchtower, nginx builds quicker than other images and it may occur that not all images are redeployed at the same time) and the `panel` container (when a error occurs, the container remains useable for new websites but provides strange results).
 
 <div class="alert alert-success">
-    <b>Solve</b>: Restart <code>nginx</code> container first and then <code>Panel</code> container (see <a href="#managing-containers">Redeploy a container</a>)
+    <b>Solving</b>:<br>
+    Restart <code>nginx</code> container first and then <code>Panel</code> container (see <a href="#managing-containers">Redeploy a container</a>)
 </div>
 
 ## Containers are not redeployed automatically
@@ -110,13 +112,16 @@ It might happen that some containers are not redeployed when new images are push
 
 - Watchtower container is not running: It appears this container stop sometimes randomly.
   <div class="alert alert-success">
-      <b>Solve</b>: <a href="#redeploying-the-stack">Redeploy the stack</a> 
+      <b>Solving</b>:<br>
+      <a href="#redeploying-the-stack">Redeploy the stack</a> 
   </div>
   Watchtower container will be redeployed and at the same time, all the other containers will be redeployed using the latest image.
 
 - Watchtower is not looking at the right container names: It might happens that overtime, **Portainer**/**Docker** update, can alter the way the containers are named.
   <div class="alert alert-success">
-      <b>Solve</b>: Access to the docker-compose (<b>step 3</b> of <a href="#redeploying-the-stack">Redeploying the Stack</a>). Check inside the <code>watchtower-climsim</code> section the <code>command</code> line: <img src="/assets/images/climsim_maintenance/portainer-docker-compose.png" style="margin: 10px 0px;"> 
-      All the names provided here have to match the ones of the containers deployed in <b>Containers</b> section below:
-       <img src="/assets/images/climsim_maintenance/portainer-climsim-watchtower-issue.png" style="margin: 10px 0px;">
+    <b>Solving</b>:<br>
+    Access to the docker-compose (<b>step 3</b> of <a href="#redeploying-the-stack">Redeploying the Stack</a>). Check inside the <code>watchtower-climsim</code> section the <code>command</code> line:<br>
+    <p align="center"><img src="/assets/images/climsim_maintenance/portainer-docker-compose.png" style="width: 600px; margin-top: 10px;"></p>
+    All the names provided here have to match the ones of the containers deployed in <b>Containers</b> section below:
+    <p align="center"><img src="/assets/images/climsim_maintenance/portainer-climsim-watchtower-issue.png" style="width: 600px; margin-top: 10px;"></p>
   </div>
