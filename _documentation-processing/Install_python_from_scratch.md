@@ -5,9 +5,9 @@ excerpt: All the steps to install and configure a python environment on your com
 toc: true
 ---
 <style>
-    div {border-radius: 10px; margin: 10px 0px}
+    .initial-content div {border-radius: 10px; margin-bottom: 15px;}
     pre {background-color:#fafafa; padding:15px 0px; padding-left:15px;}
-    code {background-color:#fafafa; color:#002d46; font-size:small; padding: 2px 5px; border-radius: 4px;}
+    code {background-color:#fafafa; color:#002d46; font-size:medium; padding: 2px 5px; border-radius: 4px;}
     img {border-radius: 10px;}
 </style>
 
@@ -165,7 +165,7 @@ They can be installed either through the graphical interface or the terminal.
   conda install -c anaconda numpy
   ```
   <div class="alert alert-info">
-  <em><b>Note</b>: we could have also used the <b>pip</b> command to install python packages but remember it is generally not advised to mix <code>pip install</code> and <code>conda install</code> in a conda environment. You can find more informations to understand pip and conda <a href="https://www.anaconda.com/blog/understanding-conda-and-pip">here</a>.</em>
+  <em><b>Note</b>: we could have also used the <code>pip</code> command to install python packages but remember it is generally not advised to mix <code>pip install</code> and <code>conda install</code> in a conda environment. You can find more informations to understand pip and conda <a href="https://www.anaconda.com/blog/understanding-conda-and-pip">here</a>.</em>
   </div>
 
 ## Useful commands
