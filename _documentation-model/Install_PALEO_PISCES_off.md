@@ -5,6 +5,13 @@ excerpt: Installing and configuring Paleo Pisces offline
 toc: true
 ---
 
+<style>
+    .initial-content div {border-radius: 10px; margin-bottom: 15px;}
+    pre {background-color:#fafafa; padding:15px 0px; padding-left:15px;}
+    code {background-color:#fafafa; color:#002d46; font-size:medium; padding: 2px 5px; border-radius: 4px;}
+    img {border-radius: 10px;}
+</style>
+
 [![](https://img.shields.io/static/v1?label=Code&message=here&color=lightgrey&style=flat-square&logo=github)](https://github.com/Paleoclim-CNRS/PaleoPisces)
 
 Reference paper for the PISCES model is [Aumont et al. 2015](https://gmd.copernicus.org/articles/13/3011/2020/gmd-13-3011-2020.html). You will find additional information about parameterization and appropiate references within this paper as well.
@@ -48,11 +55,9 @@ When launching for the first time this script, a `param.py` file will be created
 </p>
 
 <div class="alert alert-info">
-<em>Note: This <code>param.py</code> file will request for element (folder/file/job name) to install and set up Paleo Pisces.
-
-As long as one of these element entered in the <code>param.py</code> file doesn't match the conditions (e.g. folder doesn't exist whereas it should), python script will request user to enter another value through a prompt to fix the issue.
-
-If the new value fit the conditions it will be automatically updated in the <code>param.py</code> file at the concerned variable.</em>
+<em>Note: This parametrization file (<code>param.py</code>) will request for elements (folder/file/job name) to install and set up <b>Paleo Pisces</b>.<br><br>
+As long as one of these elements entered in this file doesn't match the conditions (e.g. folder doesn't exist whereas it should), python script will request user to enter another value through a prompt.<br><br>
+If the new value fit the conditions it will be automatically updated in the parametrization file.</em>
 </div>
 
 ## Configure Paleo Pisces
