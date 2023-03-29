@@ -5,6 +5,14 @@ excerpt: Use Diag_CM5A2.py file on IRENE to perform basic diags over CM5A2's out
 toc: true
 ---
 
+<style>
+    .initial-content div {border-radius: 10px; margin-bottom: 15px;}
+    pre {background-color:#fafafa; border-radius: 7px;}
+    code {background-color:#fafafa; color:#002d46; font-size:medium; border-radius: 4px;}
+    .alert-warning code {background-color:#fafafa; color:#002d46; font-size:medium; padding: 2px 5px; border-radius: 4px;}
+    div pre {margin:0px;}
+</style>
+
 [![](https://img.shields.io/static/v1?label=Code&message=here&color=lightgrey&style=flat-square&logo=github)](https://github.com/Paleoclim-CNRS/Diag_CM5A2/tree/IRENE_GEN2212)
 
 ## Introduction 
@@ -36,6 +44,7 @@ Load environment
 ```
 . load_env.sh
 ```
+<div class="alert alert-warning">Make sure to use <code>. load_env.sh</code> and not <code>./load_env.sh</code> </div>
 
 ## Launch the script
 
