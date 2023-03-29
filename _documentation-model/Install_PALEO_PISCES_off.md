@@ -8,7 +8,8 @@ toc: true
 <style>
     .initial-content div {border-radius: 10px; margin-bottom: 15px;}
     pre {background-color:#fafafa; padding:15px 0px; padding-left:15px;}
-    code {background-color:#fafafa; color:#002d46; font-size:medium; padding: 2px 5px; border-radius: 4px;}
+    code {background-color:#fafafa; color:#002d46; font-size:medium; padding: 2px 0px; border-radius: 4px;}
+    .alert-warning code {background-color:#fafafa; color:#002d46; font-size:medium; padding: 2px 5px; border-radius: 4px;}
     img {border-radius: 10px;}
 </style>
 
@@ -39,6 +40,8 @@ Load environment
 ```
 . load_env.sh
 ```
+
+<div class="alert alert-warning">Make sure to use <code>. load_env.sh</code> and not <code>./load_env.sh</code> so the script is sourced into your current shell and you will be able to use <code>python3</code> hereafter.</div>
 
 ## Install Paleo Pisces
 
