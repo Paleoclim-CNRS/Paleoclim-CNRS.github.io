@@ -44,7 +44,7 @@ Load environment
 ```
 . load_env.sh
 ```
-<div class="alert alert-warning">Make sure to use <code>. load_env.sh</code> and not <code>./load_env.sh</code> </div>
+<div class="alert alert-warning">Make sure to use <code>. load_env.sh</code> and not <code>./load_env.sh</code> so the script is sourced into your current shell and you will be able to use <code>python3</code> hereafter.</div>
 
 ## Launch the script
 
