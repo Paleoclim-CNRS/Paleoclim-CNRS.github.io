@@ -6,9 +6,11 @@ toc: true
 ---
 <style>
     .initial-content div {border-radius: 10px; margin-bottom: 15px;}
-    pre {background-color:#fafafa; padding:15px 0px; padding-left:15px;}
-    code {background-color:#fafafa; color:#002d46; font-size:medium; padding: 2px 5px; border-radius: 4px;}
+    pre {background-color:#fafafa; border-radius: 7px;}
+    code {background-color:#fafafa; color:#002d46; font-size:medium; padding: 2px 0px; border-radius: 4px;}
     img {border-radius: 10px;}
+    .alert-info code, .alert-warning code {padding:2px 5px;}
+
 </style>
 
 There are several ways to install python, but in this documentation we will use the **Anaconda Distribution** platform because it contains various convenient tools to install and configure python quickly.
@@ -103,7 +105,7 @@ conda install spyder-kernels=2.3
 </div>
 
 <div class="alert alert-warning">
-<em><b>Warning</b>: currently the version required for <code>spyder-kernels</code> should be <code>>= 2.3.0</code> and <code>< 2.4.0</code>. Consider this might change later. It will get notified in the <b>Spyder</b> console. From then you will have to remove the <code>spyder-kernels</code> package currently installed on the <b>myenv</b> environment and install the version of the required one (Check <a href="#useful-commands">Useful commands</a>).</em>
+<em><b>Warning</b>: currently the version required for <code>spyder-kernels</code> should be <code>>= 2.3.0</code> and <code>< 2.4.0</code>. Consider this might change later. It will get notified in the <b>Spyder</b> console. From then you will have to remove the <code>spyder-kernels</code> package currently installed on the <b>myenv</b> environment and install the new required version (Check <a href="#useful-commands">Useful commands</a> to see how to remove packages).</em>
 </div>
 
 ## 5 - Configure Spyder
@@ -154,7 +156,7 @@ They can be installed either through the graphical interface or the terminal.
 
 - With the terminal:
 
-  1. When you know the name of the package you want to install search for the right **conda install** command on internet. For example you can write "conda numpy" in the internet research bar. Look for the official anaconda web site [here](https://anaconda.org/anaconda/numpy) which will list the different possible commands to use.
+  1. When you know the name of the package you want to install search for the right **conda install** command on the official [**Anaconda** website](https://anaconda.org). For example we can look for the `numpy` package on the [website](https://anaconda.org/anaconda/numpy). All the commands available are listed.
   1. Open a terminal
   1. Activate the conda environment **myenv** by using the command:
   ```
@@ -206,7 +208,7 @@ conda list py_pack
 ```
 conda list -n myenv py_pack
 ```
-- Install package *py_pack* in current environment: Look for the command on **Anaconda** website
+- Install package *py_pack* in current environment: Look for the command on the official [**Anaconda** website](https://anaconda.org)
 - Remove package *py_pack* in current environment: 
 ```
 conda remove py_pack
