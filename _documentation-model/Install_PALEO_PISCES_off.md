@@ -11,7 +11,12 @@ toc: true
     code {background-color:#fafafa; color:#002d46; font-size:medium; padding: 2px 0px; border-radius: 4px;}
     .alert-warning code {background-color:#fafafa; color:#002d46; font-size:medium; padding: 2px 5px; border-radius: 4px;}
     img {border-radius: 10px;}
+    .error {background-color:#ff4816; color:#ffffff; padding: 2px 10px; border-radius: 7px;}
+    .alert-info code, .error code {padding:2px 5px;}
 </style>
+
+<div class="error">Due to the latest update on IRENE to <code>redhat8</code>, the set of routines below is not working properly. <b>Work to fix these issues is undergoing.</b></div> 
+
 
 [![](https://img.shields.io/static/v1?label=Code&message=here&color=lightgrey&style=flat-square&logo=github)](https://github.com/Paleoclim-CNRS/PaleoPisces)
 
@@ -58,9 +63,9 @@ When launching for the first time this script, a `param.py` file will be created
 </p>
 
 <div class="alert alert-info">
-<em>Note: This parametrization file (<code>param.py</code>) will request for elements (folder/file/job name) to install and set up <b>Paleo Pisces</b>.<br><br>
+<em>Note: This parametrization file <code>param.py</code> will request for elements (folder/file/job name) to install and set up <b>Paleo Pisces</b>.<br><br>
 As long as one of these elements entered in this file doesn't match the conditions (e.g. folder doesn't exist whereas it should), python script will request user to enter another value through a prompt.<br><br>
-If the new value fit the conditions it will be automatically updated in the parametrization file.</em>
+If the new value fit the conditions it will be automatically updated in this <code>param.py</code>.</em>
 </div>
 
 ## Configure Paleo Pisces
@@ -95,3 +100,9 @@ And run the job:
 ```
 ccc_msub Job_[JOB_NAME]
 ```
+
+## After ?
+
+Once you have followed all these steps, you won't need to use the `install_paleopisces.py` script anymore. 
+
+However you can still use `config_paleopisces.py` and `init_paleopisces.py` to set up other configurations and launch new simulations.
