@@ -917,8 +917,6 @@ Launch the simulation:
 ccc_msub Job_[CPL-SIM]
 ```
 
----
-
 # Prepare coupled simulation from restart
 
 This imply you have a readily available coupled run to be used for your new simulation. 
@@ -977,8 +975,6 @@ Launch the job:
 ```
 ccc_msub Job_[NEW-CPL-SIM]
 ```
-
----
 
 # INFOS
 
@@ -1043,27 +1039,6 @@ For example:
 - **1h** ocean time step means `rn_rdt = 3600` and therefore `nn_fsbc = 8`
 - **30min** ocean time step means `rn_rdt = 1800` and therefore `nn_fsbc = 16`
 
-## CI files generation (memo)
-
-File|To provide in|Sim type|Generated with|Input needed
--|:-:|:-:|:-:
-`topo_bathy_1x1_file.nc`|*Netcdf_Editor App*||
-`coordinate_file.nc`|*opa9.card*|**CPL**|
-`amipbc_sst_1x1.nc`|*lmdz.card*|**LMDZ**|`CI_temp_salin.py`|Random `amipbc_sst_1x1.nc`
-`data_1m_potential_temperature_nomask.nc`|*opa9.card*|**CPL**|`CI_temp_salin.py`|Random `data_1m_potential_temperature_nomask.nc`
-`data_1m_salinity_nomask.nc`|*opa9.card*|**CPL**|`CI_temp_salin.py`|Random `data_1m_salinity_nomask.nc`
-`sst_data.nc`|*opa9.card*|**CPL**|`CI_temp_salin.py`|Random `sst_data.nc`
-`sss_data.nc`|*opa9.card*|**CPL**|`CI_temp_salin.py`|Random `sss_data.nc`
-`sstoc.nc`|*oasis.card*|**CPL**|`CreateRestartOce4Oasis.bash`|`amipbc_sst_1x1.nc` produced by `CI_temp_salin.py`
-
-```
-/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/CI_temp_salin/CI_temp_salin.py
-/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/CreateRestartOce4Oasis.bash
-comes from ->
-/ccc/work/cont003/gen2212/p519don/BC_PALEOIPSL/COUPLER/EXE/CreateRestartOce4Oasis.bash
-```
-
----
 
 # TROUBLESHOOTING
 
@@ -1120,7 +1095,7 @@ But sometimes, output folder in *$CCCSTOREDIR* can be empty as well.
 
 ## Hgardfou
 
-When getting error `... hgardfou ...` in file `Debug/atm_debug_file` it means atmosphere model is getting unstable (hgardfou means atmospheric unstability).
+When getting error `... hgardfou ...` in file `Debug/atm_debug_file` it means atmosphere model is getting unstable.
 
 <div class="alert alert-success">
   <b>Solving</b>:<br>
@@ -1158,91 +1133,3 @@ You can start by checking param files like `COMP/pisces.card` and check the nc f
 Check also `PARAM/namelist` files, some might have the `149` hard coded, so change it to `174`.
 
 A `grep -r 149 *` might help to track the discidents
-
----
-
-# QUESTIONS
-
-Concerning **LMDZ**:
-In Anta's doc, in this [step](https://paleoclim-cnrs.github.io/documentation-model/IPSL_config/#2-simulation-setup) when requested to modify values of `co2_ppm`, `solaire`, `R_ecc`...
-
-Do I keep values of JB's file or do I use the ones in Anta's doc ???
-
----
-
-Quels fichiers utiliser pour le **pisces.card** ? 
-JB utilise:
-`/ccc/work/cont003/gen2212/p25ladan/BC_IPSLCM5A2/New_DeepMIP/BC_IPSL_PISCES_Large_grid/data_DIC_nomask_large_grid.nc`
-`/ccc/work/cont003/gen2212/p25ladan/BC_IPSLCM5A2/New_DeepMIP/BC_IPSL_PISCES_Large_grid/data_Alkalini_nomask_large_grid.nc`
-`/ccc/work/cont003/gen2212/p25ladan/BC_IPSLCM5A2/New_DeepMIP/BC_IPSL_PISCES_Large_grid/data_O2_nomask_large_grid.nc`
-`/ccc/work/cont003/gen2212/p25ladan/BC_IPSLCM5A2/New_DeepMIP/BC_IPSL_PISCES_Large_grid/data_NO3_nomask_large_grid.nc`
-`/ccc/work/cont003/gen2212/p25ladan/BC_IPSLCM5A2/New_DeepMIP/BC_IPSL_PISCES_Large_grid/data_PO4_nomask_large_grid.nc`
-`/ccc/work/cont003/gen2212/p25ladan/BC_IPSLCM5A2/New_DeepMIP/BC_IPSL_PISCES_Large_grid/data_Si_nomask_large_grid.nc`
-`/ccc/work/cont003/gen2212/p25ladan/BC_IPSLCM5A2/New_DeepMIP/BC_IPSL_PISCES_Large_grid/data_DOC_nomask_large_grid.nc`
-`/ccc/work/cont003/gen2212/p25ladan/BC_IPSLCM5A2/New_DeepMIP/BC_IPSL_PISCES_Large_grid/data_Fer_nomask_large_grid.nc`
-`/ccc/work/cont003/gen2212/p25ladan/BC_IPSLCM5A2/New_DeepMIP/BC_IPSL_PISCES_Large_grid/dust.orca_large_grid.nc`
-`/ccc/work/cont003/gen2212/p25ladan/BC_IPSLCM5A2/New_DeepMIP/BC_IPSL_PISCES_Large_grid/bathy.orca_v1_large_grid.nc`
-`/ccc/work/cont003/gen2212/p25ladan/BC_IPSLCM5A2/New_DeepMIP/BC_IPSL_PISCES_Large_grid/river.orca_large_grid.nc`
-`/ccc/work/cont003/gen2212/p25ladan/BC_IPSLCM5A2/New_DeepMIP/BC_IPSL_PISCES_Large_grid/ndeposition.orca_large_grid.nc`
-`/ccc/work/cont003/gen2212/p25ladan/BC_IPSLCM5A2/New_DeepMIP/BC_IPSL_PISCES_Large_grid/par.orca_large_grid.nc`
-`/ccc/work/cont003/gen2212/p25ladan/BC_IPSLCM5A2/New_DeepMIP/BC_IPSL_PISCES_Large_grid/solubility.orca_large_grid.nc`
-
---- 
-
-Le script `CreateRestartAtm4Oasis.bash` ne crée pas les fichiers **flxat_LMD9695_maskFrom_ORCA2.3.nc**, **icbrg_LMD9695_maskFrom_ORCA2.3.nc**, **icshf_LMD9695_maskFrom_ORCA2.3.nc** (Utilisé pour le **oasis.card**)
-
----
-
-Pourquoi dans la doc Anta dit d'utiliser les restarts de LMDZOR (MBG, LMDZ et SRF) ([ici](https://paleoclim-cnrs.github.io/documentation-model/IPSL_config/#2-simulation-setup-2))et dans la simu de JB il n'y a pas MBG ? il y a SBG par contre (ici `/ccc/store/cont003/gen2212/gramoula/IGCM_OUT/LMDZOR/PROD/clim/LMDZOR-NDMIP-tpw-1x`)???
-
----
-
-## Issue CreateRestartAtm4Oasis.bash
-
-**(Soluce : TAKE *YANNICK* version)**
-
-Used this [doc](https://forge.ipsl.jussieu.fr/igcmg_doc/wiki/Doc/ComputingCenters/TGCC) (pt 3.1) to load good env.
-Then:
-- In *Yannick* file version
-
-  Removed all the module purge and module load -> seems ok
-
-- In *svn* latest file version
-   
-   Removed all the `module purge` and `module load` and added `module load python3` -> nearly ok but library error
-
-
- Ressources
-
-**Quentin** file:
-
-`/ccc/work/cont003/gen2212/pillotqu/PALEO-IPSLCM5A2/CPLRESTART/CreateRestartAtm4Oasis.bash`
-
-**Anta** file:
-
-`/ccc/work/cont003/gen2212/sarrantc/BC_PALEOIPSL/CPLRESTART/CreateRestartAtm4Oasis.bash`
-
-**Yannick** file:
-
-`/ccc/work/cont003/gen2212/p519don/BC_PALEOIPSL/COUPLER/EXE/CreateRestartAtm4Oasis.bash`
-
-`CreateRestartAtm4Oasis.bash` from *svn*:
-```
-module purge
-module load hdf5
-module load netcdf-c
-module load nco
-module load cdo
-module load python3
-module load datadir/igcmg
-module list
-```
-
-`CreateRestartAtm4Oasis.bash` from *Yannnick*:
-```
-module unload cdo nco ferret
-module unload netcdf hdf5
-module load python # /2.7.12
-module load netcdf-c/4.3.3.1
-module load nco
-```
