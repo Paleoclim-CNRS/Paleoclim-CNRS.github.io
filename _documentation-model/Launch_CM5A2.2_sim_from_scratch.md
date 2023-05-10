@@ -118,7 +118,7 @@ For this guide, we will assume the variable `path_out` has been defined to `$CCC
   <pre><code>/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/</code></pre>
 </div>
 
-Then use `CreateRestartOce4Oasis.bash` script.
+Then use `CreateRestartOce4Oasis.bash` script (source `/ccc/work/cont003/gen2212/p519don/BC_PALEOIPSL/COUPLER/EXE/`).
 
 Below is a table resuming all the files you will need and how to generate them:
 
@@ -130,14 +130,6 @@ File to create|Generated with|Input file needed|To provide in|Sim type
 `sst_data.nc`|`CI_temp_salin.py`|Random `sst_data.nc`|*opa9.card*|*COUPLED*
 `sss_data.nc`|`CI_temp_salin.py`|Random `sss_data.nc`|*opa9.card*|*COUPLED*
 `sstoc.nc`|`CreateRestartOce4Oasis.bash`|`amipbc_sst_1x1.nc` produced by `CI_temp_salin.py`|*oasis.card*|*COUPLED*
-
-<div class="error"></div>
-```
-/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/CreateRestartOce4Oasis.bash
-comes from ->
-/ccc/work/cont003/gen2212/p519don/BC_PALEOIPSL/COUPLER/EXE/CreateRestartOce4Oasis.bash
-```
-<div class="error"></div>
 
 ### Boundary condition files
 To generate Boundary condition files, use the [Netcdf Editor App](https://climate_sim.osupytheas.fr) ([doc](https://paleoclim-cnrs.github.io/netcdf_editor_app/multi)).
@@ -233,8 +225,6 @@ Execute the script `ins_job`:
   <pre><code>$CCCWORKDIR/CM5A2.2/modipsl/config/IPSLCM5A2/[ELC-SIM]/</code></pre>
 </div>
 
-<div class="error"></div> 
-
 Modify it:
 ```
 vim COMP/lmdz.card
@@ -252,10 +242,10 @@ ListNonDel= (${R_IN}/ATM/Albedo.nc                                              
             (${R_IN}/ATM/ECDYN.nc.20020101                                                                                    , ECPHY.nc          ), \
             (/ccc/work/cont003/gen2212/[IRENE_USER]/BC_IPSLCM5A2/[OUT_APP]/[OUT_APP]_topo_high_res_netcdf_flask_app.nc        , Relief.nc         ), \
             (${R_IN}/ATM/Rugos.nc                                                                                             , .                 ), \
-(DAEFAULT PALEO)(/ccc/work/cont003/gen2212/p25ladan/BC_IPSLCM5A2/New_DeepMIP/LMDZ/landiceref_NOICE.nc                         , landiceref.nc     ), \
+            (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/ice/landiceref_NOICE.nc                          , landiceref.nc     ), \
             (${R_IN}/ATM/Ozone/HYBRIDE/v2.clim/tro3_1855.new.nc                                                               , climoz.nc         ), \
             (/ccc/work/cont003/gen2212/[IRENE_USER]/BC_IPSLCM5A2/OUT_CI_temp_salin/[file_sst_bc_clim.nc]                      , amipbc_sst_1x1.nc ), \
-(Default PALEO)(/ccc/work/cont003/gen2212/p25ladan/BC_IPSLCM5A2/New_DeepMIP/LMDZ/new_deepmip_sic_bc_clim.nc                   , amipbc_sic_1x1.nc ), \
+            (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/ice/no_sic_bc_clim.nc                            , amipbc_sic_1x1.nc ), \
             (/ccc/work/cont003/gen2212/[IRENE_USER]/BC_IPSLCM5A2/[OUT_APP]/mosaix_weights/LMD9695_grid_maskFrom_ORCA2.3_v2.nc , o2a.nc            )
 
 [ParametersFiles]
@@ -265,8 +255,6 @@ List= ...
 
 ```
 
-<div class="error"></div> 
-
 - `amipbc_sst_1x1.nc` is produced from `CI_temp_salin.py` script (see [Initial condition files](#initial-condition-files))
 - `Relief.nc` and `o2a.nc` are produced from the **Netcdf Editor App** (see [Boundary condition files](#boundary-condition-files))
 
@@ -274,14 +262,12 @@ List= ...
       For <code>amipbc_sst_1x1.nc</code> : this file should be consistent with the <code>sstoc.nc</code> file you will provide in the <b>oasis.card</b> from the coupled simulation you will launch hereafter.
 </div>
 
-<div class="alert error"></div>
-<div class="error">
-  What to take for <code>landiceref.nc</code> and <code>amipbc_sic_1x1.nc</code> ?????
+<div class="alert alert-warning">
+  <b>TODO</b><br>
+  Add ability to implement <b>land ice</b> and <b>sea ice</b>, in this case there will be 2 choices:<br>
+  <li>Without ice (<code>landiceref_NOICE.nc</code>, <code>no_sic_bc_clim.nc</code>)</li>
+  <li>With ice (use scripts to generate file...)</li>
 </div>
-You have 2 choices for the `landiceref.nc` file:
-- If no ice, take the default one (landiceref_NOICE.nc ?)
-- If ice, take this one: `blabla.nc`
-<div class="alert error"></div>
 
 <div class="sub-section"></div>
 
@@ -626,7 +612,6 @@ Modify it by using:
 - `CI_temp_salin.py` script (see [Initial condition files](#initial-condition-files))
 - **Netcdf Editor App** (see [Boundary condition files](#boundary-condition-files))
 
-<div class="error"></div>
 
 ```
 vim COMP/opa9.card
@@ -635,24 +620,22 @@ vim COMP/opa9.card
 ```
 mesh_mask= n
 
-ListNonDel= (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/coordinate_files/????????????                                , coordinates.nc                          ), \
-            (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/[GRID_TYPE]/opa9/new_deepmip_corr_runoffs_ORCA2_depths.nc    , runoffs_ORCA2_depths.nc                 ), \
-            (/ccc/work/cont003/gen2212/[IRENE_USER]/BC_IPSLCM5A2/OUT_CI_temp_salin/[file_data_1m_potential_temperature_nomask.nc]         , data_1m_potential_temperature_nomask.nc ), \
-            (/ccc/work/cont003/gen2212/[IRENE_USER]/BC_IPSLCM5A2/OUT_CI_temp_salin/[file_data_1m_salinity_nomask.nc]                      , data_1m_salinity_nomask.nc              ), \
-            (/ccc/work/cont003/gen2212/[IRENE_USER]/BC_IPSLCM5A2/OUT_CI_temp_salin/[file_sss_data.nc]                                     , sss_data.nc                             ), \
-            (/ccc/work/cont003/gen2212/[IRENE_USER]/BC_IPSLCM5A2/OUT_CI_temp_salin/[file_sst_data.nc]                                     , sst_data.nc                             ), \
-            (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/[GRID_TYPE]/opa9/new_deepmip_corr_constant_chlorophyll.nc    , chlorophyll_surface.nc                  ), \
-            (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/[GRID_TYPE]/opa9/new_deepmip_corr_K1rowdrg.nc                , K1rowdrg.nc                             ), \
-            (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/[GRID_TYPE]/opa9/new_deepmip_corr_mask_itf.nc                , mask_itf.nc                             ), \
-            (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/[GRID_TYPE]/opa9/new_deepmip_corr_sali_ref_clim_monthly.nc   , sali_ref_clim_monthly.nc                ), \
-            (/ccc/work/cont003/gen2212/[IRENE_USER]/BC_IPSLCM5A2/[OUT_APP]/[OUT_APP]_bathy_netcdf_flask_app.nc                            , bathy_meter.nc                          ), \
-            (/ccc/work/cont003/gen2212/[IRENE_USER]/BC_IPSLCM5A2/[OUT_APP]/[OUT_APP]_ahmcoef_netcdf_flask_app.nc                          , ahmcoef.nc                              ), \
-            (/ccc/work/cont003/gen2212/[IRENE_USER]/BC_IPSLCM5A2/[OUT_APP]/[OUT_APP]_heatflow_netcdf_flask_app.nc                         , geothermal_heating.nc                   ), \
-            (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/[GRID_TYPE]/opa9/new_deepmip_standard_M2rowdrg.nc            , M2rowdrg.nc                             ), \
-            (/ccc/work/cont003/gen2212/[IRENE_USER]/BC_IPSLCM5A2/[OUT_APP]/[OUT_APP]_sub_basins_netcdf_flask_app.nc                       , subbasins.nc                            )
+ListNonDel= (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/coordinate_files/[coordinates_file.nc]                    , coordinates.nc                          ), \
+            (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/[GRID_TYPE]/opa9/new_deepmip_corr_runoffs_ORCA2_depths.nc , runoffs_ORCA2_depths.nc                 ), \
+            (/ccc/work/cont003/gen2212/[IRENE_USER]/BC_IPSLCM5A2/OUT_CI_temp_salin/[file_data_1m_potential_temperature_nomask.nc]      , data_1m_potential_temperature_nomask.nc ), \
+            (/ccc/work/cont003/gen2212/[IRENE_USER]/BC_IPSLCM5A2/OUT_CI_temp_salin/[file_data_1m_salinity_nomask.nc]                   , data_1m_salinity_nomask.nc              ), \
+            (/ccc/work/cont003/gen2212/[IRENE_USER]/BC_IPSLCM5A2/OUT_CI_temp_salin/[file_sss_data.nc]                                  , sss_data.nc                             ), \
+            (/ccc/work/cont003/gen2212/[IRENE_USER]/BC_IPSLCM5A2/OUT_CI_temp_salin/[file_sst_data.nc]                                  , sst_data.nc                             ), \
+            (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/[GRID_TYPE]/opa9/[chlorophyll_surface.nc]                 , chlorophyll_surface.nc                  ), \
+            (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/[GRID_TYPE]/opa9/[K1rowdrg.nc]                            , K1rowdrg.nc                             ), \
+            (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/[GRID_TYPE]/opa9/[mask_itf.nc]                            , mask_itf.nc                             ), \
+            (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/[GRID_TYPE]/opa9/[sali_ref_clim_monthly.nc]               , sali_ref_clim_monthly.nc                ), \
+            (/ccc/work/cont003/gen2212/[IRENE_USER]/BC_IPSLCM5A2/[OUT_APP]/[OUT_APP]_bathy_netcdf_flask_app.nc                         , bathy_meter.nc                          ), \
+            (/ccc/work/cont003/gen2212/[IRENE_USER]/BC_IPSLCM5A2/[OUT_APP]/[OUT_APP]_ahmcoef_netcdf_flask_app.nc                       , ahmcoef.nc                              ), \
+            (/ccc/work/cont003/gen2212/[IRENE_USER]/BC_IPSLCM5A2/[OUT_APP]/[OUT_APP]_heatflow_netcdf_flask_app.nc                      , geothermal_heating.nc                   ), \
+            (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/[GRID_TYPE]/opa9/[M2rowdrg.nc]                            , M2rowdrg.nc                             ), \
+            (/ccc/work/cont003/gen2212/[IRENE_USER]/BC_IPSLCM5A2/[OUT_APP]/[OUT_APP]_sub_basins_netcdf_flask_app.nc                    , subbasins.nc                            )
 ```
-
-<div class="error"></div>
 
 <div class="alert-warning">
   If you use the standard grid (<b>182x149</b>) <code>[GRID_TYPE] = std_grid</code>
@@ -660,25 +643,19 @@ ListNonDel= (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/coo
   If you use the extended grid (<b>182x174</b>) <code>[GRID_TYPE] = ext_grid</code>
 </div>
 
-Here is a summary of where each file should come from:
-```
-coordinates.nc                          -> DEFAULT PALEO (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/)
-runoffs_ORCA2_depths.nc                 -> DEFAULT PALEO (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/)
-data_1m_potential_temperature_nomask.nc -> CI_temp-salin.py 
-data_1m_salinity_nomask.nc              -> DEFAULT PALEO (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/)
-sss_data.nc                             -> DEFAULT PALEO (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/)
-sst_data.nc                             -> CI_temp-salin.py 
-chlorophyll_surface.nc                  -> DEFAULT PALEO (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/)
-K1rowdrg.nc                             -> DEFAULT PALEO (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/)
-mask_itf.nc                             -> DEFAULT PALEO (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/)
-sali_ref_clim_monthly.nc                -> DEFAULT PALEO (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/)
-bathy_meter.nc                          -> Netcdf Editor App
-ahmcoef.nc                              -> Netcdf Editor App
-geothermal_heating.nc                   -> Netcdf Editor App
-M2rowdrg.nc                             -> DEFAULT PALEO (/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/)
-subbasins.nc                            -> Netcdf Editor App
-```
+Files below depend on the period of the simulation and the grid type:
+- `coordinates.nc`:
 
+  In `/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/coordinate_files/` you will find `coordinates_paleorca2_yd.nc`
+  which can handle simulations ranging from 0 up to 90Ma.
+
+  If you want a more specific coordinates file you might find what you are looking for with a `grep -ir /.*coordinates.*\.nc *` command on other IRENE user spaces.
+
+- `M2rowdrg.nc`:
+  
+  M2 files which are provided in `/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/default_templates/[GRID_TYPE]/opa9/` are generic files with no tides.
+
+  <div class="alert alert-info">More specific M2 files are available for standard grid (ask Jean-Baptiste Ladant or Yannick Donnadieu)</div>
 
 <div class="sub-section"></div>
 
@@ -757,13 +734,9 @@ List=   (${SUBMIT_DIR}/PARAM/namcouple_${RESOL_CPL}_MX, namcouple)
 ```
 
 - `flxat.nc` is produced from `CreateRestartAtm4Oasis.bash` (see [Oasis coupler](#oasis-coupler))
-- `sstoc.nc` is produced from `CreateRestartOce4Oasis.bash` (see [Initial condition files](#initial-condition-files))
-<div class="error">??? using <code>amipbc_sst_1x1.nc</code> provided in ELC as input ???</div>
+- `sstoc.nc` is produced from `CreateRestartOce4Oasis.bash` (see [Initial condition files](#initial-condition-files)) using as input the `amipbc_sst_1x1.nc` file provided in the **lmdz.card** from [LMDZ](#lmdz) simulation
 - `mosaix_weights` files are produced from the **Netcdf Editor App** (see [Boundary condition files](#boundary-condition-files))
 
-<div class="alert-info">
-The <b>sstoc</b> file should correspond to the file provided in the <code>lmdz.card</code> (<code>amipbc_sst_1x1.nc</code>) from the previously run <b>ELC</b> simulation (see <a href="#lmdz">LMDZ</a>)
-</div>
 
 <div class="sub-section"></div>
 
@@ -950,9 +923,8 @@ DateEnd=200-12-30
 ...
 OverRule=y
 RestartDate=0100-12-30
-RestartJobName=JobName=CPL-REF
+RestartJobName=CPL-REF
 RestartPath=/ccc/store/cont003/gen2212/[IRENE_USER]/IGCM_OUT/IPSLCM5A2/PROD/paleo
-#========================================================================
 ```
 
 <div class="alert-info">
@@ -970,6 +942,12 @@ Install job:
   Location:
   <pre><code>$CCCWORKDIR/CM5A2.2/modipsl/config/IPSLCM5A2/[NEW-CPL-SIM]/</code></pre>
 </div>
+
+Copy all the parametrization files from the previous **CPL-REF** simulation into the new one:
+```
+cp -r ../[CPL-REF]/COMP/* COMP/
+cp -r ../[CPL-REF]/PARAM/* PARAM/
+```
 
 Launch the job:
 ```
@@ -1133,3 +1111,10 @@ You can start by checking param files like `COMP/pisces.card` and check the nc f
 Check also `PARAM/namelist` files, some might have the `149` hard coded, so change it to `174`.
 
 A `grep -r 149 *` might help to track the discidents
+
+
+# QUESTIONS
+
+If starting a new simu **CPL-extented** from a ref simu **CPL-REF** (which uses extended grid `182x174`)
+After installing job from `config.card`, **CPL-extended** will have param files (`PARAM/namelist_ORCA2_cfg_paleo` and `PARAM/namcouple_ORCA2xLMD9695_MX`) in standard grid config with `149` hard coded.
+Do we still need to replace `149` by `174` in these param files before launching `Job_CPL-extented` ?
