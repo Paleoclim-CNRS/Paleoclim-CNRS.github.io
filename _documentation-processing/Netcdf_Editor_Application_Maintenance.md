@@ -79,6 +79,55 @@ This can be necessary after a power cut for example or if you accidentally remov
 1. Click **Update the stack** (this will repull all the images and redeploy all containers):
     ![Portainer Update Stack](/assets/images/climsim_maintenance/portainer-update-stack.png)
 
+
+## Database management
+At some point you might need to reach the application database. The steps below describe how get access and somme useful commands.
+
+Access to the console of `climsim_flask_app_1` container (**step 7** of [Get access to the containers](#get-access-to-the-containers)).
+Once in the console use the commands
+```
+apt-get update
+apt-get install sqlite3
+```
+
+Go to the instance folder:
+```
+cd /usr/src/app/instance
+```
+
+You can access the db by using the command:
+```
+sqlite3 netcdf_editor.sqlite
+```
+
+You can list the tables available in the db with:
+```
+.tables
+```
+To display all the content of table, use:
+```
+select * from [TABLE];
+```
+With `[TABLE]` the table name you want to look at.
+
+Other commands can be found on the [official Sqlite website](https://www.sqlite.org/cli.html).
+
+## Processes queue management
+
+Access to the console of `climsim_message_broker_1` container (**step 7** of [Get access to the containers](#get-access-to-the-containers)).
+Once in the console use the following commands to list the available queues:
+```
+rabbitmqadmin list queues
+```
+
+To see the processes in a specific queue, use:
+```
+rabbitmqadmin get queue=[QUEUE_NAME] count=40 
+```
+`[QUEUE_NAME]` can be found using command to list queues available.
+
+More information can be found on the [offcial rabbitmq website](https://www.rabbitmq.com/management-cli.html).
+
 # Troubleshooting
 
 ## Volume failure
@@ -125,3 +174,22 @@ It might happen that some containers are not redeployed when new images are push
     All the names provided here have to match the ones of the containers deployed in <b>Containers</b> section below:
     <p align="center"><img src="/assets/images/climsim_maintenance/portainer-climsim-watchtower-issue.png" style="width: 600px; margin-top: 10px;"></p>
   </div>
+
+## Regrid or Routing or MOSAIC or MOSAIX step is not validating upon save
+It might happen one of this step status remains red even after saving it.
+
+The web application page is being refreshed every 10 seconds. When saving a step, sometimes the main app page is reached just before the process starts or completes. In this case the indicator status will remain red for 10 secondes before turning blue or green. Just wait at least for 10 seconds to make sure it updates.
+
+If it doesn't, check below.
+
+<div class="alert alert-success">
+    <b>Solving</b>:<br>
+    If a file is not provided in the right format or for some other various reasons a process can be stuck in the <b>python</b> or <b>MOSAC</b>/<b>MOSAIX</b> queue. In this case, this specific process won't complete and all the next launched processes for all users will remain blocked and won't process either.
+    <br>
+    To solve this, access the console of the <code>climsim_message_broker_1</code> container and check if there is any process showing (see <a href="#process-queue-management">Process queue management</a>).<br>
+    Processes should generally be treated quickly (few seconds) so if you see them in the queue after this amount of time, it is likely they are stuck. In this case, you can either:<br>
+    <li>delete the first process pending (potentially blocking the other processes):<br>
+    <code>rabbitmqadmin get queue=[QUEUE_NAME] ackmode=ack_requeue_false</code></li>
+    <li>or delete all the processes by using:<br>
+    <code>rabbitmqadmin delete queue name=[QUEUE_NAME]</code></li>
+</div>
