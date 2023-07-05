@@ -35,11 +35,12 @@ excerpt: Application functionning under the hood
     .alert-warning a:active {color:#472197}
 </style>
 
-# Application architecture
+# Netcdf Editor Application architecture
 
-When talking about the Netcdf Editor App, it consist actually in 2 underlying applications :
+When talking about the Netcdf Editor Application, it is composed of 2 underlying applications :
 
-The **Single page web app** (for editing netcdf files) and the **Multi page web app** (for preparing boundary conditions for CM5A2 Earth System Model).
+- **Single Page Web App** - for editing netcdf files
+- **Multi Page Web App** - for preparing boundary conditions for CM5A2 Earth System Model used for deep time climate simulations.
 
 ## Deployment workflow (CICD)
 
@@ -74,7 +75,7 @@ The automated workflow is the following:
 
 ## Single Page Web App
 
-The Sinlge Page web app is composed of a [Panel](http://panel.holoviz.org/) framework which is a dashboarding technology for python. It allows to interact with netcdf files with ease without caring of the code necessary to load, vizualize and modify the data. This application has been reused for the Multi Page web app (check [here](#panel) for more details).
+The **Single Page** is composed of a [Panel](http://panel.holoviz.org/) framework which is a dashboarding technology for python. It allows to interact with netcdf files with ease without caring of the code necessary to load, vizualize and modify the data. This application has been reused for the **Multi Page** (check [here](#panel) for more details).
 
 ## Multi Page Web App
 
@@ -102,13 +103,13 @@ The main goal of this container is to display the different webpages, do simple 
     <img src='/assets/images/climsim/Panel_2.png' style="width:300px;">
 </p>
 
-[Panel](http://panel.holoviz.org/) is the tool that is used to create the Single Page app. It is useful for creating rich in page interactivity and processing easily.
+[Panel](http://panel.holoviz.org/) is the tool that is used to create the **Single Page**. It is useful for creating rich in page interactivity and processing easily.
 
-The single page webapp has been slightly refactored and then reused notably for:
+The **Single Page** has been slightly refactored and then reused notably for:
 - Internal Oceans
 - Passage Problems
 - Sub basins
-- Complex Viewer (The complex viewer is a port of the single page web app and can be used to quickly and easily modify any file)
+- Complex Viewer (The complex viewer is a port of the **Single Page** and can be used to quickly and easily modify any file)
 
 The source code for these fields are in `Multi_Page_WebApp/python_tools/climpy/interactive`
 
