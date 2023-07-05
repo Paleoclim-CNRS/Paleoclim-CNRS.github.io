@@ -70,7 +70,7 @@ Deploying the code locally from your computer can be useful to test some feature
   ```
   git fetch
   ```
-  If you have done any modification in the repository, you can undo it by using:
+  If you have done any modification in the repository, you can undo it by using (restore the state of the local repository to match the state of the remote branch):
   ```
   git reset --hard @{u}
   ```
