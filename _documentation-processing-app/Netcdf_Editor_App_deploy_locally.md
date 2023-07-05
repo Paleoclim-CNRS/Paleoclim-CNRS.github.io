@@ -77,7 +77,7 @@ Deploying the code locally from your computer can be useful to test some feature
 
 # Single Page Web App
 
-- Change into the Single page web app directory: 
+- Change into the **Single Page** directory: 
   ```
   cd Single_Page_WebApp
   ```
