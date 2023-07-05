@@ -48,8 +48,8 @@ The IPSL Boundary Condtion Editor is developped on [GitHub](https://github.com/P
 1. Click on **Stacks**:
     ![Portainer dev](/assets/images/climsim/portainer-dev.png)
 1. At this step, you can either clic on the:
-   - **netcdf** stack name which is the *Single Page web application*
-   - **climsim** stack name which is the *Multi Page web application*
+   - **netcdf** stack name which is the *Single Page*
+   - **climsim** stack name which is the *Multi Page*
    <div class="alert alert-info">
     For the rest of the section we will use the <b>climsim</b> stack but it is identical for the <b>netcdf</b> stack except there will be only one container.
    </div>
@@ -266,7 +266,7 @@ It might happen with time, the applications can stop working because of package 
 <div class="alert alert-success">
     <b>Solving</b>:<br>
     You will need first to identify the images version which are functionnal on the (<a href="#registryosupytheasfr">Osupytheas registry</a>). You can associate the version of an image with its tag which is the <b>GitHub commit number</b>. Generally you will want to take images with the same tag to avoid any issues.<br><br>
-    Once you have the tag (GitHub commit number), connect to Portainer and reach the <b>docker-compose</b> (Step 3 of <a href="#redeploying-the-stack">Redeploying the Stack</a>) of the application you are interested in (either <b>climsim</b> = <em>Muli Page</em> or <b>netcdf</b> = <em>Single Page</em>).<br><br>
+    Once you have the tag (GitHub commit number), connect to Portainer and reach the <b>docker-compose</b> (Step 3 of <a href="#redeploying-the-stack">Redeploying the Stack</a>) of the application you are interested in (either <b>climsim</b> = <em>Multi Page</em> or <b>netcdf</b> = <em>Single Page</em>).<br><br>
     Modify it by adding the <code>:$(tag)</code> at the end of the <code>images:</code> line:
     <img src="/assets/images/climsim/modify-image-tag.png"><br><br>
     Normally you will add it only for following images:
