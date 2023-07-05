@@ -4,9 +4,11 @@ position: Engineer
 type: fellow
 title: " "
 header:
-    overlay_image: "/assets/images/background_anthony.jpeg"
+    # overlay_image: "/assets/images/background_anthony.jpeg"
+    image: "/assets/images/background_anthony.jpeg"
+    # height: 100px
     # overlay_color: "#5e616c"
-excerpt: " " # This is to remove the content from the image
+# excerpt: " " # This is to remove the content from the image
 ---
 
 <style> .page { padding-right: 0px; } </style>

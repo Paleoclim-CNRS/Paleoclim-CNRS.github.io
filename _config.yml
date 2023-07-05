@@ -171,7 +171,10 @@ collections:
   documentation-model:
     output: true
     permalink: /:collection/:path/
-  documentation-processing:
+  documentation-processing-util:
+    output: true
+    permalink: /:collection/:path/
+  documentation-processing-app:
     output: true
     permalink: /:collection/:path/
   documentation-website:
@@ -239,10 +242,20 @@ defaults:
       author_profile: true
       share: false
       comments: false
-  # _documentation-processing
+  # _documentation-processing-util
   - scope:
       path: ""
-      type: documentation-processing
+      type: documentation-processing-util
+    values:
+      layout: single
+      read_time: true
+      author_profile: true
+      share: false
+      comments: false
+  # _documentation-processing-app
+  - scope:
+      path: ""
+      type: documentation-processing-app
     values:
       layout: single
       read_time: true

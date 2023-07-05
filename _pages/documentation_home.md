@@ -11,7 +11,7 @@ header:
 excerpt: <h2><FONT color="#ffffff">Documentation</FONT></h2>
 
 feature_rowl1:
-  - image_path: /assets/images/earth01.jpeg
+  - image_path: /assets/images/planet.jpg
     alt: "Model Toolkit"
     title: "Model Toolkit"
     excerpt: >
