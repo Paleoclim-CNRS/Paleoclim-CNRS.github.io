@@ -83,8 +83,9 @@ Deploying the code locally from your computer can be useful to test some feature
   ```
 - Build the image:
   ```
-  docker build -f single_page_webapp.Dockerfile -t netcdf_editor_single_page . --no-cache (the --no-cache means everything gets rebuilt)
+  docker build -f single_page_webapp.Dockerfile -t netcdf_editor_single_page . --no-cache
   ```
+  The `--no-cache` means everything gets rebuilt
 - Start the container 
   ```
   docker run -d -p 8080:8080 netcdf_editor_single_page 
