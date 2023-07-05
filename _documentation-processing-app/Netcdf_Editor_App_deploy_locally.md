@@ -77,7 +77,7 @@ Deploying the code locally from your computer can be useful to test some feature
 
 # Single Page Web App
 
-- Change into the Single page web app directory 
+- Change into the Single page web app directory: 
   ```
   cd Single_Page_WebApp
   ```
@@ -86,7 +86,7 @@ Deploying the code locally from your computer can be useful to test some feature
   docker build -f single_page_webapp.Dockerfile -t netcdf_editor_single_page . --no-cache
   ```
   The `--no-cache` means everything gets rebuilt
-- Start the container 
+- Start the container:
   ```
   docker run -d -p 8080:8080 netcdf_editor_single_page 
   ```
@@ -99,7 +99,7 @@ Deploying the code locally from your computer can be useful to test some feature
 
 # Multi Page Web App
 
-- Make sure nothing is running
+- Make sure nothing is running:
   ```
   docker-compose -f docker-compose.yaml --env-file ./config/.env.prod down
   ```
@@ -148,7 +148,7 @@ You can deploy the application in 2 different ways:
       ```
     
     If you don't do this you might get a `sqlite3.OperationalError` error when running the application
-  - Run
+  - Run:
     ```
     docker-compose -f docker-compose.dev.yaml --env-file ./config/.env.dev up --build -d --scale python_worker=2
     ```
