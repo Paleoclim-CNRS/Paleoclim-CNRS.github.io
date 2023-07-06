@@ -101,7 +101,7 @@ The main goal of this container is to display the different webpages, do simple 
 ### Panel
 
 <p align="center">
-    <img src='/assets/images/climsim/Panel_2.png' style="width:300px;">
+    <img src='/assets/images/climsim/panel_2.png' style="width:300px;">
 </p>
 
 [Panel](http://panel.holoviz.org/) is the tool that is used to create the **Single Page**. It is useful for creating rich in page interactivity and processing easily.
