@@ -49,7 +49,7 @@ CICD stands for Continuous Integration and Continuous Deployment
 Here is a scheme representing the workflow:
 
 <div class="alert alert-info">
-I retranscribed it as accurately as I could though I'm not an expert of those technologies. This scheme can give at least a grasp of how the platforms and elements are chained together.
+  This scheme might not be accurate technically speaking but it can give at least a grasp of how the platforms and elements are chained together.
 </div>
 
 ![Deployment Arch](/assets/images/climsim/climsim-deployment-arch.png)
@@ -71,11 +71,12 @@ The automated workflow is the following:
       <div class="alert light-info">
         If you want more information about the registry images management, check <a href="https://paleoclim-cnrs.github.io/documentation-processing-app/Netcdf_Editor_Application_Maintenance/#registryosupytheasfr">registry.osupytheas.fr</a> in maintenance documentation..
       </div>
-1. On the OSU infrastructure (referent: Julien Lecubin) where the app is deployed to, [WatchTower](https://containrrr.dev/watchtower/) is used. This tool monitors (certain) images every 5 minutes and looks to see if a new version is available. If it is the case it will automatically download it, stop the previous container using the given image and redeploy a new container using the new image with the same configuration as the previous container.
+1. [WatchTower](https://containrrr.dev/watchtower/) is used on the OSU infrastructure (referent: Julien Lecubin) where the app is deployed in order to monitor (certain) images every 5 minutes. If a new version is available, the new image version will be downloaded and portainer will stop the container using the old image and redeploy a new container using the new image with the same configuration as the previous container.
+
 
 ## Single Page Web App
 
-The **Single Page** is composed of a [Panel](http://panel.holoviz.org/) framework which is a dashboarding technology for python. It allows to interact with netcdf files with ease without caring of the code necessary to load, vizualize and modify the data. This application has been reused for the **Multi Page** (check [here](#panel) for more details).
+The **Single Page** is composed of the [Panel](http://panel.holoviz.org/) framework which is a dashboarding technology for python. It allows to interact with netcdf files with ease without caring of the code necessary to load, vizualize and modify the data. This application has been reused for the **Multi Page** (check [here](#panel) for more details).
 
 ## Multi Page Web App
 
