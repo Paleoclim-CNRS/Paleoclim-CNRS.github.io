@@ -32,7 +32,7 @@ excerpt: How to prepare and launch a coupled simulation
     .alert-warning a:active {color:#472197}
 </style>
 
-<div class="error">This is a preliminary work. This guide will be subject to change soon.</div> 
+<div class="error">This is a preliminary work. This guide will be subject to changes soon.</div> 
 
 <div class="alert general">
   Directories in which you should be to run the commands are given in grey squares:
@@ -49,6 +49,12 @@ excerpt: How to prepare and launch a coupled simulation
     This is a warning or a specific case
   </div> 
 </div>
+
+# Model overview
+
+![Model_overview](/assets/images/Schema_Model_IPSLCM5A2.png)
+
+<p style="font-size:14px; color: grey; margin-top:-15px">Scheme made by Erwan Pineau</p>
 
 # Preliminary steps
 
