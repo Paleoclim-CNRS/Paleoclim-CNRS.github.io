@@ -59,18 +59,19 @@ Here is a scheme representing the workflow:
 The automated workflow is the following:
 
 1. When there is a change on the `main` branch (either by direct **commit** or a **pull request**) [GitHub actions](https://github.com/Paleoclim-CNRS/netcdf_editor_app/tree/main/.github/workflows) are triggered:
-    - Python tests: ensure the code works
-    - Build Docker Images
-1. The GitHub Action for building the Docker images, builds the images and then pushes the images (updates the images) to:
-    - [DockerHub](https://hub.docker.com/u/ceregecl) with the tag `latest`. This means that anyone can easily install the application (but there is a limit on the number of image pulls on dockerhub free 200?).
-      <div class="alert light-info">
-        If you want more information about the dockerHub images management, check <a href="https://paleoclim-cnrs.github.io/documentation-processing-app/Netcdf_Editor_Application_Maintenance/#dockerhub">DockerHub section</a> in maintenance documentation.
-      </div>
-    - [OSU Infrastructure](https://docker.osupytheas.fr) at registry.osupytheas.fr (you need an osu account to access this) with the tag `latest` and a tag with the *GitHub commit number* (previous versions are stored here).
-    This is the preferred place to get the images as there is no limiting and is on local infrastructure.
-      <div class="alert light-info">
-        If you want more information about the registry images management, check <a href="https://paleoclim-cnrs.github.io/documentation-processing-app/Netcdf_Editor_Application_Maintenance/#registryosupytheasfr">registry.osupytheas.fr</a> in maintenance documentation..
-      </div>
+    - Python tests: ensure the code works (check [python-app-flask-test.yml](https://github.com/Paleoclim-CNRS/netcdf_editor_app/blob/main/.github/workflows/python-app-flask-test.yml) file on **GitHub**)
+    - Build Docker Images (check [docker-image.yml](https://github.com/Paleoclim-CNRS/netcdf_editor_app/blob/ed842e0c1e92e897b90d74bb30f84f226df800e7/.github/workflows/docker-image.yml) file on **GitHub**)
+  
+      The latter one builds the images and then pushes them to:
+        - [DockerHub](https://hub.docker.com/u/ceregecl) with the tag `latest`. This means that anyone can easily install the application (but there is a limit on the number of image pulls on dockerhub free 200?).
+          <div class="alert light-info">
+            If you want more information about the dockerHub images management, check <a href="https://paleoclim-cnrs.github.io/documentation-processing-app/Netcdf_Editor_Application_Maintenance/#dockerhub">DockerHub section</a> in maintenance documentation.
+          </div>
+        - [OSU Infrastructure](https://docker.osupytheas.fr) at registry.osupytheas.fr (you need an osu account to access this) with the tag `latest` and a tag with the *GitHub commit number* (previous versions are stored here).
+        This is the preferred place to get the images as there is no limiting and is on local infrastructure.
+          <div class="alert light-info">
+            If you want more information about the registry images management, check <a href="https://paleoclim-cnrs.github.io/documentation-processing-app/Netcdf_Editor_Application_Maintenance/#registryosupytheasfr">registry.osupytheas.fr</a> in maintenance documentation..
+          </div>
 1. [WatchTower](https://containrrr.dev/watchtower/) is used on the OSU infrastructure (referent: Julien Lecubin) where the app is deployed in order to monitor (certain) images every 5 minutes. If a new version is available, the new image version will be downloaded and portainer will stop the container using the old image and redeploy a new container using the new image with the same configuration as the previous container.
 
 
@@ -233,22 +234,22 @@ Important paths and files :
 
 - Main Python script:
   ```
-  /.../netcdf_editor_app/Multi_Page_WebApp/flask_app/climate_simulation_platform/app.py
+  netcdf_editor_app/Multi_Page_WebApp/flask_app/climate_simulation_platform/app.py
   ```
 
 - database operations (save, edit nc file, etc...):
   ```
-  /.../netcdf_editor_app/Multi_Page_WebApp/flask_app/climate_simulation_platform/db.py
+  netcdf_editor_app/Multi_Page_WebApp/flask_app/climate_simulation_platform/db.py
   ```
 
 - Python code related to processings (coefs computation, routing):
   ```
-  /.../netcdf_editor_app/Multi_Page_WebApp/python_tools/climpy/bc/ipsl
+  netcdf_editor_app/Multi_Page_WebApp/python_tools/climpy/bc/ipsl
   ```
 
 - Python code related to data visualization (Panel):
   ```
-  /.../netcdf_editor_app/Multi_Page_WebApp/python_tools/climpy/interactive
+  netcdf_editor_app/Multi_Page_WebApp/python_tools/climpy/interactive
   ```
 
 
