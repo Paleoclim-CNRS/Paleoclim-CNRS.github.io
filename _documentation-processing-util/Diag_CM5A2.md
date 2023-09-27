@@ -29,7 +29,7 @@ Depending on the options enabled:
 
 ## Preliminary steps
 
-The folder containing the script and all the packages required are located on IRENE here: `/ccc/work/cont003/gen2212/gen2212/Diag_CM5A2/`.
+The folder containing the script and all the packages required are located on IRENE here: `/ccc/work/cont003/gen2212/gen2212/util_CM5A2/Diag_CM5A2/`.
 
 Connect to IRENE and move to the folder location containing the code.
 ```
