@@ -49,6 +49,8 @@ If run on IRENE, don't forget to load the right environment:
 If run on a local machine, they should work with:
 ```
 python     3.8
+hdf5       1.10.6
+netcdf4    1.6.2 
 numpy      1.21.5
 xarray     0.20.1
 matplotlib 3.5.2
