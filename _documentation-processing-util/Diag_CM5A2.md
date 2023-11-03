@@ -35,7 +35,7 @@ Connect to IRENE and move to the folder location containing the code.
 ```
 ssh [username]@irene-fr.ccc.cea.fr
 
-cd /ccc/work/cont003/gen2212/gen2212/Diag_CM5A2/
+cd /ccc/work/cont003/gen2212/gen2212/utils_CM5A2/Diag_CM5A2
 ```
 
 At this step you can either choose to run `ccc_mprun -s -m work,store -Q test -p rome -T 600` or not before following the rest of the documentation. This will run the code on an **interactive computing node** (might be faster ?)
@@ -54,10 +54,10 @@ Load environment
   ```
 
 - Enter your `[ProfileName]` as requested:
-    - if `[ProfileName]` is not known: a file `[ProfileName]_profile.py` will be created here `userData/[ProfileName]/` and the program will stop. 
+    - if `[ProfileName]` is not known: a file `[ProfileName]_profile.py` will be created here `user_input_/[ProfileName]/` and the program will stop. 
     At this point, you will need to edit the `[ProfileName]_profile.py` file  according to your needs and relaunch the program.
-    An example can be found in `userData/EXAMPLE/EXAMPLE_profile.py`.
-    - if `[ProfileName]` is known: program will run following the settings of the `userData/[ProfileName]/[ProfileName]_profile.py` file.
+    An example can be found in `user_input/EXAMPLE/EXAMPLE_profile.py`.
+    - if `[ProfileName]` is known: program will run following the settings of the `user_input/[ProfileName]/[ProfileName]_profile.py` file.
 
     Note that the variables in `[ProfileName]_profile.py` file:
     - `sentence_to_use`
