@@ -1,7 +1,7 @@
 ---
 author: Anthony
 position: Engineer
-type: fellow
+type: alumni
 title: " "
 header:
     # overlay_image: "/assets/images/background_anthony.jpeg"
