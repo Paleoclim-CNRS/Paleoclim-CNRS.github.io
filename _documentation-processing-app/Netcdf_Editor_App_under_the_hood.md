@@ -65,12 +65,12 @@ The automated workflow is the following:
       The latter one builds the images and then pushes them to:
         - [DockerHub](https://hub.docker.com/u/ceregecl) with the tag `latest`. This means that anyone can easily install the application (but there is a limit on the number of image pulls on dockerhub free 200?).
           <div class="alert light-info">
-            If you want more information about the dockerHub images management, check <a href="https://paleoclim-cnrs.github.io/documentation-processing-app/Netcdf_Editor_Application_Maintenance/#dockerhub">DockerHub section</a> in maintenance documentation.
+            If you want more information about the dockerHub images management, check <a href="https://paleoclim-cnrs.github.io/documentation-processing-app/Netcdf_Editor_App_maintenance/#dockerhub">DockerHub section</a> in maintenance documentation.
           </div>
         - [OSU Infrastructure](https://docker.osupytheas.fr) at registry.osupytheas.fr (you need an osu account to access this) with the tag `latest` and a tag with the *GitHub commit number* (previous versions are stored here).
         This is the preferred place to get the images as there is no limiting and is on local infrastructure.
           <div class="alert light-info">
-            If you want more information about the registry images management, check <a href="https://paleoclim-cnrs.github.io/documentation-processing-app/Netcdf_Editor_Application_Maintenance/#registryosupytheasfr">registry.osupytheas.fr</a> in maintenance documentation..
+            If you want more information about the registry images management, check <a href="https://paleoclim-cnrs.github.io/documentation-processing-app/Netcdf_Editor_App_maintenance/#registryosupytheasfr">registry.osupytheas.fr</a> in maintenance documentation..
           </div>
 1. [WatchTower](https://containrrr.dev/watchtower/) is used on the OSU infrastructure (referent: Julien Lecubin) where the app is deployed in order to monitor (certain) images every 5 minutes. If a new version is available, the new image version will be downloaded and portainer will stop the container using the old image and redeploy a new container using the new image with the same configuration as the previous container.
 
@@ -196,7 +196,7 @@ The Docker technology is used for the deployment of the application. It is a pla
 
 - The single app is deployed in one Panel container.
 
-- As the Multi app is more complicated, it is deployed through severel containers, one for each main element of the app:
+- As the Multi app is more complicated, it is deployed through several containers, one for each main element of the app:
   - Message_broker
   - Message_dispacher
   - Ngnix
