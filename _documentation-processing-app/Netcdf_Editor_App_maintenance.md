@@ -90,6 +90,8 @@ This can be necessary after a power cut for example or if you accidentally remov
 1. Click **Update the stack** (this will repull all the images and redeploy all containers):
     ![Portainer Update Stack](/assets/images/climsim/portainer-update-stack.png)
 
+1. A box will appear asking you to confirm. Tick the **Re-pull image and redeploy** box and click **Update** button.
+
 
 ## Database management
 At some point you might need to reach the application database. The steps below describe how get access and somme useful commands.
