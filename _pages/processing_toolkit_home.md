@@ -29,6 +29,4 @@ feature_test:
     btn_class: "btn--primary"
 ---
 
-**Netcdf Editor App** documentation is still under construction
-{: .notice--warning}
 {% include feature_row id="feature_test" %}
