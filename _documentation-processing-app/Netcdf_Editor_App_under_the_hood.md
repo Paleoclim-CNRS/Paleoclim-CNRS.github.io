@@ -187,7 +187,7 @@ Advantages of this implementations are:
 
 ## GitHub actions
 GitHub actions are automated workflows which are defined by files located [here](https://github.com/Paleoclim-CNRS/netcdf_editor_app/tree/main/.github/workflows) on GitHub website.
-- `docker-images.yml` is the workflow which produces the images ans push them to the **Osupytheas registry** and **DockerHub**.
+- `docker-images.yml` is the workflow which produces the images and push them to the **Osupytheas registry** and **DockerHub**.
 - `python-app-flask-test.yml` are python tests to make sure implementations will not break up the application.
 
 # Docker side
