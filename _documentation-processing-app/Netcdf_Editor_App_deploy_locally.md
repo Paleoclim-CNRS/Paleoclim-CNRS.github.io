@@ -130,8 +130,13 @@ You can deploy the application in 2 different ways:
   - Connect to the application via `http://localhost:43829` (the port is defined in `config/.env.prod` under `NGINX_PORT`)
 
 - **DEVELOPMENT** mode 
+
+[text](Netcdf_Editor_App_under_the_hood.md)
+
+[TEST](../Netcdf_Editor_App_under_the_hood/#use-development-containers)
+
   <div class='alert light-info'>
-    Designed for development. Creates images from local dockerfiles and deploys containers from them - allows to see changes made in the code straight away without having to relaunch containers.<br>If you want to know more about this, check <a href="#use-development-containers">here</a>.
+    Designed for development. Creates images from local dockerfiles and deploys containers from them - allows to see changes made in the code straight away without having to relaunch containers.<br>If you want to know more about this, check <a href="../Netcdf_Editor_App_under_the_hood/#use-development-containers">Use development containers</a> section from <b>Under the Hood</b> documentation.
   </div>
   - If this is the first time running the database then you will need to initialize it with the following commands
     - Get command line access to the flask container:
