@@ -37,7 +37,7 @@ excerpt: Visualization script for CM5A2 outputs
 
 These scripts allow to visualize CM5A2 outputs. Plot are customizable with the ability to use custom colormap, add contour lines, etc... For more details you can check the header of each script which will explain all the inputs necessary (their format, specificities, etc...).
 
-They are available on IRENE: `/ccc/work/cont003/gen2212/gen2212/util_CM5A2/visu_CM5A2/`
+They are available on IRENE: `/ccc/work/cont003/gen2212/gen2212/utils_CM5A2/visu_CM5A2/`
 
 They can be run on IRENE or on local machin. 
 
