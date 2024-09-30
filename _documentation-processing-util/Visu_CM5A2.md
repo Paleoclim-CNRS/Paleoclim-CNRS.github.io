@@ -56,20 +56,20 @@ To load the right environment:
 Scripts are available on [GitHub](https://github.com/Paleoclim-CNRS/Visu_CM5A2)
 
 - You can either install environment from the `environment.yml` file located in the repository:
-  ```shell
+  ```
   conda env create -f /absolute/path/to/.../image_montage/environment.yml
   ```
 
 - Or you can install the following conda environment:
 
   Create environment:
-  ```shell
+  ```
   conda create -n  env_name python=3.9
   conda activate env_name
   ```
   
   Install following packages:
-  ```shell
+  ```
   conda install anaconda::ipykernel 
   conda install conda-forge::matplotlib
   conda install conda-forge::cartopy
