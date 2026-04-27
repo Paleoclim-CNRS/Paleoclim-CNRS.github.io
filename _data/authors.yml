@@ -248,7 +248,7 @@ jbladant:
 jnaar:
   name        : "Joseph Naar"
   bio         : "Postdoctoral fellow at CEREGE"
-  avatar      : "/assets/images/jnaar.jpg"
+  avatar      : "/assets/images/jnaar.png"
   location    : "Aix-En-Provence, France"
   links:
     - label: "Email"
