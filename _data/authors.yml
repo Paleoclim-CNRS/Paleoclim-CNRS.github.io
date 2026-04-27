@@ -245,3 +245,12 @@ jbladant:
       icon: "fas fa-fw fa-envelope-square"
       url: "mailto:jbladant@gmail.com"
 
+jnaar:
+  name        : "Joseph Naar"
+  bio         : "Postdoctoral fellow at CEREGE"
+  avatar      : "/assets/images/jnaar.jpg"
+  location    : "Aix-En-Provence, France"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:naar@cerege.fr"
