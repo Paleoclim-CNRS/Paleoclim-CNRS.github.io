@@ -4,16 +4,58 @@ title: "CLAP"
 permalink: /clap/
 ---
 
+<style>
+.clap-board {
+  width: 100%;
+  height: 700px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.clap-edit-link {
+  display: inline-block;
+  margin-bottom: 2em;
+  padding: 8px 14px;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.clap-report {
+  margin-bottom: 0.8em;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5em;
+}
+
+.clap-report summary {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.05em;
+}
+
+.clap-report-content {
+  padding: 1em 0.5em;
+}
+</style>
+
+
 ## Upcoming CLAP
 
-Add your name and a few words about what you would like to discuss.
+Add your name and a few words about what you would like to discuss at the next CLAP.
 
 <iframe
-  src="URL_DE_TON_PAD"
-  width="100%"
-  height="650"
-  style="border:1px solid #ccc; border-radius:4px;">
+  class="clap-board"
+  src="https://docs.google.com/document/d/12nmShMUq6tPkvEtAEUTYbfu4RLOCEUAWYOQRbifxS4o/edit?tab=t.0&rm=minimal">
 </iframe>
+
+<a
+  class="clap-edit-link"
+  href="https://docs.google.com/document/d/12nmShMUq6tPkvEtAEUTYbfu4RLOCEUAWYOQRbifxS4o/edit?tab=t.0"
+  target="_blank">
+  Open CLAP board in Google Docs
+</a>
 
 ---
 
@@ -26,14 +68,16 @@ Add your name and a few words about what you would like to discuss.
 
 {% for report in clap_reports %}
 
-<details style="margin-bottom: 1em;">
-  <summary style="cursor:pointer; font-weight:bold;">
+<details class="clap-report">
+
+  <summary>
     {{ report.title }}
   </summary>
 
-  <div style="padding: 1em 0 0 1em;">
+  <div class="clap-report-content">
     {{ report.content }}
   </div>
+
 </details>
 
 {% endfor %}
